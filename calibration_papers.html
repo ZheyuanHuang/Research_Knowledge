@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calibration, Information Design & Decision-Making Papers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-top: 10px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 45px;
+        }
+        
+        .section h2 {
+            font-size: 1.6em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .section h3 {
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .paper {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .paper:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
+            transform: translateX(4px);
+        }
+        
+        .paper.primary {
+            border-left-color: #e74c3c;
+            background: #fff5f4;
+        }
+        
+        .paper.secondary {
+            border-left-color: #f39c12;
+            background: #fffef5;
+        }
+        
+        .paper.foundational {
+            border-left-color: #2980b9;
+            background: #f4f8fb;
+        }
+        
+        .paper.ml {
+            border-left-color: #9b59b6;
+            background: #faf6fb;
+        }
+        
+        .paper.ops {
+            border-left-color: #16a085;
+            background: #f5faf8;
+        }
+        
+        .paper-title {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .paper-meta {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .paper-authors {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .paper-focus {
+            font-size: 0.95em;
+            color: #34495e;
+            margin: 12px 0;
+            line-height: 1.5;
+        }
+        
+        .paper-focus strong {
+            color: #2c3e50;
+        }
+        
+        .links {
+            margin-top: 12px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .link-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .link-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .link-btn.secondary {
+            background: #f39c12;
+        }
+        
+        .link-btn.secondary:hover {
+            background: #e67e22;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-top: 5px;
+        }
+        
+        .badge.primary {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .badge.secondary {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .badge.theory {
+            background: #3498db;
+            color: white;
+        }
+        
+        .badge.design {
+            background: #9b59b6;
+            color: white;
+        }
+        
+        .badge.econ {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 0.95em;
+        }
+        
+        .summary-box h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+            text-transform: none;
+            text-align: center;
+        }
+        
+        .summary-box ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .summary-box li {
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+        
+        .key-insight {
+            background: #fff9e6;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        
+        .key-insight strong {
+            color: #d68910;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.6em;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .links {
+                flex-direction: column;
+            }
+            
+            .link-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Calibration, Information Design & Decision-Making</h1>
+            <p>A Comprehensive Repository of Papers on Theoretical Modeling in Economics & Management Science</p>
+        </header>
+        
+        <div class="content">
+            <div class="summary-box">
+                <h3>📋 Quick Navigation</h3>
+                <p style="text-align: center; margin-bottom: 10px;">
+                    <strong>5 Primary Papers</strong> (Explicit Information Design + Calibration + Theoretical Modeling) | 
+                    <strong>2 Secondary Papers</strong> | 
+                    <strong>Foundational & Other Research</strong>
+                </p>
+            </div>
+            
+            <!-- PRIMARY PAPERS -->
+            <div class="section">
+                <h2>🌟 Primary Papers: Calibration + Information Design + Theoretical Economics</h2>
+                <p style="margin-bottom: 20px; color: #555;">These papers explicitly frame calibration as an information design problem with theoretical modeling in economics/management science.</p>
+                
+                <!-- Paper 1 -->
+                <div class="paper primary">
+                    <div class="badge primary">MUST READ</div>
+                    <div class="badge theory">Theoretical</div>
+                    <div class="badge design">Information Design</div>
+                    <div class="badge econ">Economics</div>
+                    
+                    <div class="paper-title">1. Persuasive Calibration</div>
+                    <div class="paper-authors">Yiding Feng & Wei Tang</div>
+                    <div class="paper-meta">SODA 2026 (Forthcoming) | Economics of AI & Decision-Making</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Focus:</strong> Theoretical characterization of optimal predictor design under calibration error (ECE) constraints and incentive misalignment. Explicitly frames predictor design as information design using mean-preserving contractions (MPC).
+                    </div>
+                    <div class="paper-focus">
+                        <strong>Key Innovation:</strong> Two-step view decomposing calibrated predictor into (1) perfectly calibrated predictor (signaling scheme) and (2) miscalibration plan. LP-based algorithms for computation.
+                    </div>
+                    
+                    <div class="links">
+                        <a href="https://arxiv.org/abs/2507.12094" class="link-btn" target="_blank">📄 arXiv</a>
+                        <a href="https://wtang.org" class="link-btn secondary" target="_blank">👤 Wei Tang Homepage</a>
+                    </div>
+                </div>
+                
+                <!-- Paper 2 -->
+                <div class="paper primary">
+                    <div class="badge primary">MUST READ</div>
+                    <div class="badge theory">Theoretical</div>
+                    <div class="badge design">Information Design</div>
+                    <div class="badge econ">Economics</div>
+                    
+                    <div class="paper-title">2. Costly Miscalibration</div>
+                    <div class="paper-authors">Yingni Guo & Aran Shmaya</div>
+                    <div class="paper-meta">Theoretical Economics 16(2), 2023 | 62 citations</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Focus:</strong> Sender-receiver game where platform provides probabilistic forecasts. Introduces concept of miscalibration cost, bridging cheap-talk and persuasion models. Explicitly frames calibration as information design problem.
+                    </div>
+                    <div class="paper-focus">
+                        <strong>Key Finding:</strong> Miscalibration cost intensity proxies platform's commitment power. Shows how different cost levels affect equilibrium forecasts and customer responsiveness.
+                    </div>
+                    
+                    <div class="links">
+                        <a href="https://yingniguo.com/wp-content/uploads/2021/05/costly-miscalibration.pdf" class="link-btn" target="_blank">📄 PDF (Author)</a>
+                        <a href="https://econtheory.org/ojs/index.php/te/article/view/3991" class="link-btn" target="_blank">🔗 Journal</a>
+                        <a href="https://scholar.google.com/citations?user=xRWOOd8AAAAJ" class="link-btn secondary" target="_blank">👤 Yingni Guo</a>
+                    </div>
+                </div>
+                
+                <!-- Paper 3 -->
+                <div class="paper primary">
+                    <div class="badge primary">MUST READ</div>
+                    <div class="badge theory">Theoretical</div>
+                    <div class="badge design">Information Design</div>
+                    <div class="badge econ">Economics</div>
+                    
+                    <div class="paper-title">3. Calibrated Forecasting and Persuasion</div>
+                    <div class="paper-authors">Atulya Jain & Vianney Perchet</div>
+                    <div class="paper-meta">EC 2024 | New Haven, CT</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Focus:</strong> Dynamic game where expert sends calibrated probabilistic forecasts. Reduces dynamic game to static Bayesian persuasion problem. Characterizes implementable forecast distributions as mean-preserving contractions.
+                    </div>
+                    <div class="paper-focus">
+                        <strong>Key Result:</strong> Distribution of forecasts implementable by calibrated strategy iff it's mean-preserving contraction of honest forecasts. Connects dynamic calibration to static information design.
+                    </div>
+                    
+                    <div class="links">
+                        <a href="https://arxiv.org/abs/2406.15680" class="link-btn" target="_blank">📄 arXiv</a>
+                        <a href="https://atulya-jain.github.io/files/calibration.pdf" class="link-btn" target="_blank">📄 PDF (Author)</a>
+                        <a href="https://dl.acm.org/doi/10.1145/3670865.3673455" class="link-btn" target="_blank">🔗 ACM DL</a>
+                    </div>
+                </div>
+                
+                <!-- Paper 4 -->
+                <div class="paper primary">
+                    <div class="badge primary">MUST READ</div>
+                    <div class="badge theory">Theoretical</div>
+                    <div class="badge design">Mechanism Design</div>
+                    <div class="badge econ">Decision-Making</div>
+                    
+                    <div class="paper-title">4. Forecasting for Swap Regret for All Downstream Agents</div>
+                    <div class="paper-authors">Aaron Roth & Mirah Shi</div>
+                    <div class="paper-meta">EC 2024 | New Haven, CT | 29 citations</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Focus:</strong> Theoretical characterization of calibration's role in guaranteeing no-swap-regret for ALL downstream decision-makers with arbitrary utility functions. Core information design problem: predictor must inform multiple agents simultaneously.
+                    </div>
+                    <div class="paper-focus">
+                        <strong>Key Result:</strong> Non-calibrated but unbiased predictions improve regret bounds vs. fully calibrated forecasts. Achieves O(√T) rate in 1D and O(T^2/3) dimension-independent rate in high dimensions.
+                    </div>
+                    
+                    <div class="links">
+                        <a href="https://arxiv.org/abs/2402.08753" class="link-btn" target="_blank">📄 arXiv</a>
+                        <a href="https://dl.acm.org/doi/10.1145/3670865.3673455" class="link-btn" target="_blank">🔗 EC 2024 Proceedings</a>
+                    </div>
+                </div>
+                
+                <!-- Paper 5 -->
+                <div class="paper primary">
+                    <div class="badge primary">FOUNDATIONAL</div>
+                    <div class="badge theory">Theoretical</div>
+                    <div class="badge design">Revelation Principle</div>
+                    <div class="badge econ">Economics</div>
+                    
+                    <div class="paper-title">5. Forecast Hedging and Calibration</div>
+                    <div class="paper-authors">Dean P. Foster & Sergiu Hart</div>
+                    <div class="paper-meta">Journal of Political Economy 129(12), 2021 | 35 citations</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Focus:</strong> Theoretical framework connecting calibration to revelation principle and economic equilibrium. Develops forecast hedging concept: choosing forecasts to guarantee expected track record only improves.
+                    </div>
+                    <div class="paper-focus">
+                        <strong>Key Contribution:</strong> Unifies calibration results via simple proof scheme. Shows connection between calibration and correlated equilibrium. Provides new calibrated forecasting procedure for binary events.
+                    </div>
+                    
+                    <div class="links">
+                        <a href="https://arxiv.org/abs/2210.07169" class="link-btn" target="_blank">📄 arXiv</a>
+                        <a href="https://www.journals.uchicago.edu/doi/10.1086/716559" class="link-btn" target="_blank">🔗 JPE</a>
+                        <a href="http://www.ma.huji.ac.il/hart/papers/calib-int.pdf" class="link-btn" target="_blank">📄 PDF (Author)</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SECONDARY PAPERS -->
+            <div class="section">
+                <h2>⭐ Secondary Papers: Partial Alignment</h2>
+                <p style="margin-bottom: 20px; color: #555;">Papers with significant contributions to decision-making or mechanism design applications of calibration.</p>
+                
+                <!-- Paper 6 -->
+                <div class="paper secondary">
+                    <div class="badge secondary">RELATED</div>
+                    <div class="badge theory">Mechanism Design</div>
+                    <div class="badge econ">Economics</div>
+                    
+                    <div class="paper-title">6. Efficient Prior-Free Mechanisms for No-Regret Agents</div>
+                    <div class="paper-authors">Natalie Collina, Han Shao & Aaron Roth</div>
+                    <div class="paper-meta">EC 2024 | 24 citations</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Focus:</strong> Uses calibrated forecasts in place of common priors in mechanism design. Achieves efficiency in repeated principal-agent problems in prior-free settings through polynomial-time algorithms.
+                    </div>
+                    
+                    <div class="links">
+                        <a href="https://arxiv.org/pdf/2311.07754.pdf" class="link-btn" target="_blank">📄 PDF</a>
+                        <a href="https://dl.acm.org/doi/10.1145/3670865" class="link-btn" target="_blank">🔗 ACM DL</a>
+                    </div>
+                </div>
+                
+                <!-- Paper 7 -->
+                <div class="paper secondary">
+                    <div class="badge secondary">RELATED</div>
+                    <div class="badge theory">Decision Theory</div>
+                    <div class="badge design">Learning</div>
+                    
+                    <div class="paper-title">7. U-Calibration: Forecasting for an Unknown Agent</div>
+                    <div class="paper-authors">Bary Kleinberg, Rafael Leme, Jon Schneider & Yifan Teng</div>
+                    <div class="paper-meta">COLT 2023 | 57 citations</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Focus:</strong> Theoretical calibration metric for unknown downstream decision-makers. Shows sublinear U-calibration error necessary and sufficient for all agents to achieve sublinear regret.
+                    </div>
+                    <div class="paper-focus">
+                        <strong>Key Result:</strong> O(√T) U-calibration error algorithm bypasses lower bounds for traditional calibrated learning, achieving rates optimal for single scoring rule.
+                    </div>
+                    
+                    <div class="links">
+                        <a href="https://proceedings.mlr.press/v195/kleinberg23a/kleinberg23a.pdf" class="link-btn" target="_blank">📄 PDF</a>
+                        <a href="https://arxiv.org/abs/2306.04498" class="link-btn" target="_blank">📄 arXiv</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FOUNDATIONAL PAPERS -->
+            <div class="section">
+                <h2>🏛️ Foundational Papers: Game Theory & Calibration</h2>
+                <p style="margin-bottom: 20px; color: #555;">These pioneering works established calibration in game theory context. Less explicit on information design but foundational for theory.</p>
+                
+                <div class="paper foundational">
+                    <div class="paper-title">Foster & Vohra (1997, 1998)</div>
+                    <div class="paper-authors">D. Foster & R.V. Vohra</div>
+                    <div class="paper-meta">Games and Economic Behavior, Biometrika</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Papers:</strong> "Asymptotic Calibration" (1997), "Calibration, Regret, and Relative Entropy" (1998)
+                    </div>
+                    
+                    <div class="links">
+                        <a href="https://deanfoster.net/calibration.pdf" class="link-btn" target="_blank">📄 Calibration PDF</a>
+                    </div>
+                </div>
+                
+                <div class="paper foundational">
+                    <div class="paper-title">Hart & Mas-Colell (2000)</div>
+                    <div class="paper-authors">Sergiu Hart & Andreu Mas-Colell</div>
+                    <div class="paper-meta">Econometrica 68(5)</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Title:</strong> "A Simple Adaptive Procedure Leading to Correlated Equilibrium"
+                    </div>
+                    <div class="paper-focus">
+                        <strong>Focus:</strong> Adaptive learning procedures and correlated equilibrium via calibration
+                    </div>
+                </div>
+                
+                <div class="paper foundational">
+                    <div class="paper-title">Foster & Hart (2023)</div>
+                    <div class="paper-authors">Dean P. Foster & Sergiu Hart</div>
+                    <div class="paper-meta">Theoretical Economics</div>
+                    
+                    <div class="paper-focus">
+                        <strong>Title:</strong> "Calibeating: Beating Forecasters at Their Own Game"
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ML/LLM FOCUSED -->
+            <div class="section">
+                <h2>🤖 ML/LLM Calibration (Applied)</h2>
+                <p style="margin-bottom: 20px; color: #555;">Calibration in neural networks and language models. Applied rather than theoretically focused on information design.</p>
+                
+                <div class="paper ml">
+                    <div class="paper-title">Calibration in Neural Networks/LLMs</div>
+                    
+                    <div class="key-insight">
+                        <strong>Kalai & Vempala (STOC'24):</strong> "Hallucination and Miscalibration in LLMs" - Technical results on LLM calibration properties
+                    </div>
+                    
+                    <div class="key-insight">
+                        <strong>Percy Liang et al. (TMLR'23):</strong> Calibration of language models through various fine-tuning techniques
+                    </div>
+                    
+                    <div class="key-insight">
+                        <strong>Guo, Pleiss, Sun & Weinberger (ICML'17):</strong> "On Calibration of Modern Neural Networks" - Foundational work on neural network calibration
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OPERATIONS RESEARCH -->
+            <div class="section">
+                <h2>📊 Operations/Management Science</h2>
+                <p style="margin-bottom: 20px; color: #555;">Applied optimization and decision-focused learning. Less focused on information design framework.</p>
+                
+                <div class="paper ops">
+                    <div class="paper-title">Learning for Operations & Decision-Making</div>
+                    
+                    <div class="key-insight">
+                        <strong>Elmachtoub & Grigas (MS'22):</strong> Reinforcement learning for calibrating economic ABMs (Agent-Based Models)
+                    </div>
+                    
+                    <div class="key-insight">
+                        <strong>Witkowski et al. (MS'23):</strong> Machine learning integration in operations management
+                    </div>
+                    
+                    <div class="key-insight">
+                        <strong>Tsirtsis et al. (MS'24):</strong> Decision-focused learning for downstream optimization problems
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KEY INSIGHTS -->
+            <div class="section">
+                <h2>💡 Key Insights & Themes</h2>
+                
+                <div class="key-insight">
+                    <strong>Information Design Connection:</strong> Primary papers reframe calibration as information design—signals (predicted probabilities) are constrained to match posterior means. Tools from Bayesian persuasion characterize optimal design.
+                </div>
+                
+                <div class="key-insight">
+                    <strong>Mean-Preserving Contractions:</strong> Implementable forecast distributions must be mean-preserving contractions of honest forecasts. This constraint appears across multiple papers as core analytical tool.
+                </div>
+                
+                <div class="key-insight">
+                    <strong>Decision-Maker Guarantees:</strong> Calibration emerges as bridge between forecasting and downstream decision-maker welfare. Multiple papers show how calibration ensures no-regret, no-swap-regret properties for agents.
+                </div>
+                
+                <div class="key-insight">
+                    <strong>Commitment & Credibility:</strong> Calibration cost/constraint acts as commitment device, giving predictor credibility in sender-receiver games. This connects reputation concerns to information structure design.
+                </div>
+                
+                <div class="key-insight">
+                    <strong>Platform Design Applications:</strong> Primary motivation across papers includes CTR prediction in auctions, credit scoring, criminal justice algorithms, healthcare decision support—all domains where information provision affects downstream choices.
+                </div>
+            </div>
+            
+            <!-- SUMMARY TABLE -->
+            <div class="section">
+                <h2>📊 Quick Comparison Table</h2>
+                
+                <div style="overflow-x: auto; margin-top: 20px;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                        <thead style="background: #667eea; color: white;">
+                            <tr>
+                                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Paper</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Theory</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Info Design</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Economics</th>
+                                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #fff5f4; border: 1px solid #ddd;">
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Feng & Tang (SODA'26)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong style="color: #e74c3c;">PRIMARY</strong></td>
+                            </tr>
+                            <tr style="background: #fff5f4;">
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Guo & Shmaya (TE'23)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong style="color: #e74c3c;">PRIMARY</strong></td>
+                            </tr>
+                            <tr style="background: #fff5f4;">
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Jain & Vianney (EC'24)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong style="color: #e74c3c;">PRIMARY</strong></td>
+                            </tr>
+                            <tr style="background: #fff5f4;">
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Roth & Shi (EC'24)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong style="color: #e74c3c;">PRIMARY</strong></td>
+                            </tr>
+                            <tr style="background: #fff5f4;">
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Foster & Hart (JPE'21)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓✓</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong style="color: #e74c3c;">PRIMARY</strong></td>
+                            </tr>
+                            <tr style="background: #fffef5;">
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Collina et al. (EC'24)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong style="color: #f39c12;">SECONDARY</strong></td>
+                            </tr>
+                            <tr style="background: #fffef5;">
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Kleinberg et al. (COLT'23)</strong></td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">✓</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong style="color: #f39c12;">SECONDARY</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- READING ORDER -->
+            <div class="section">
+                <h2>📚 Recommended Reading Order</h2>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                    <ol style="line-height: 2; margin-left: 20px; font-size: 1em;">
+                        <li><strong>Start:</strong> Guo & Shmaya (TE'23) - Most accessible introduction to calibration + information design</li>
+                        <li><strong>Then:</strong> Jain & Vianney (EC'24) - Dynamic game formulation with mean-preserving contractions</li>
+                        <li><strong>Theory:</strong> Foster & Hart (JPE'21) - Forecast hedging and revelation principle connection</li>
+                        <li><strong>Applications:</strong> Roth & Shi (EC'24) - Downstream decision-maker guarantees</li>
+                        <li><strong>Advanced:</strong> Feng & Tang (SODA'26) - Optimal predictor design under general constraints</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Repository compiled December 2024 | Based on WINE 2025 Tutorial: "Information Design Perspective on Calibration"</p>
+            <p>Prepared by: Yiding Feng & Wei Tang</p>
+        </footer>
+    </div>
+</body>
+</html>
