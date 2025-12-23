@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Knowledge Base | OM PhD Candidate</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #fdfbf7; /* Cream/Paper white */
+            --text-main: #2c2c2c; /* Charcoal */
+            --text-light: #666;
+            --accent-color: #8c2f39; /* Academic Dark Red/Maroon - Change to Univ color if preferred */
+            --accent-secondary: #2f3e46; /* Slate Blue */
+            --card-bg: #ffffff;
+            --border-radius: 8px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Layout Structure */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header / Hero Section */
+        header {
+            text-align: center;
+            padding: 60px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            margin: 0 10px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 60px;
+            animation: slideUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Stagger animations */
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.4s; }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-right: 15px;
+            color: var(--accent-secondary);
+        }
+
+        .line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        /* Grid for Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-color);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-secondary);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .card-meta {
+            font-size: 0.75rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: auto;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <header>
+        <h1>[Your Name]</h1>
+        <p class="subtitle">PhD Candidate in Operations Management</p>
+        <p style="font-size: 0.9rem; color: #555; margin-bottom: 20px;">
+            Researching the intersection of Economics and OM.<br>
+            Focus: Queueing Economics, Information Design & Mechanism Design.
+        </p>
+        
+        <div class="social-links">
+            <a href="https://github.com/yourusername" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="mailto:your.email@university.edu" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </header>
+
+    <section>
+        <div class="section-header">
+            <h2>Knowledge Base</h2>
+            <div class="line"></div>
+        </div>
+        
+        <div class="grid">
+            <a href="./knowledge/queueing-theory.html" class="card">
+                <div>
+                    <div class="card-icon"><i class="fas fa-users-line"></i></div>
+                    <h3>Queueing Theory</h3>
+                    <p>Notes on heavy-traffic approximations, fluid limits, and service system dynamics.</p>
+                </div>
+                <div class="card-meta">Last Updated: Dec 2025</div>
+            </a>
+
+            <a href="./knowledge/information-design.html" class="card">
+                <div>
+                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Information Design</h3>
+                    <p>Bayesian persuasion models and information disclosure in service operations.</p>
+                </div>
+                <div class="card-meta">Notes & Proofs</div>
+            </a>
+
+            <a href="./knowledge/game-theory.html" class="card">
+                <div>
+                    <div class="card-icon"><i class="fas fa-chess-board"></i></div>
+                    <h3>Game Theory</h3>
+                    <p>Nash equilibrium concepts, mechanism design, and strategic queuing.</p>
+                </div>
+                <div class="card-meta">Reference</div>
+            </a>
+            
+            <a href="./knowledge/python-sims.html" class="card">
+                <div>
+                    <div class="card-icon"><i class="fab fa-python"></i></div>
+                    <h3>Simulation Code</h3>
+                    <p>Python repositories for stochastic process simulations and numerical experiments.</p>
+                </div>
+                <div class="card-meta">Code Snippets</div>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-header">
+            <h2>Academia</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="grid">
+            <a href="./academia/job-market-paper.pdf" class="card">
+                <div>
+                    <div class="card-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>Job Market Paper</h3>
+                    <p>Current working paper: <em>"Optimal Disclosure in Unobservable Queues"</em></p>
+                </div>
+                <div class="card-meta">Draft: Nov 2025</div>
+            </a>
+
+            <a href="./academia/conferences.html" class="card">
+                <div>
+                    <div class="card-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <h3>Conference Schedule</h3>
+                    <p>Upcoming talks at INFORMS, MSOM, and POMS-HK.</p>
+                </div>
+                <div class="card-meta">Schedule</div>
+            </a>
+
+            <a href="./academia/cv.pdf" class="card">
+                <div>
+                    <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                    <h3>Curriculum Vitae</h3>
+                    <p>Full academic CV, including education, working papers, and teaching experience.</p>
+                </div>
+                <div class="card-meta">PDF Download</div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 [Your Name]. Built with precision.</p>
+        <p style="margin-top:10px; opacity: 0.6;">
+            \( \lambda_{eff} = \lim_{t \to \infty} \frac{A(t)}{t} \)
+        </p>
+    </footer>
+
+</div>
+
+</body>
+</html>
