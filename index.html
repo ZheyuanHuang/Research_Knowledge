@@ -5,321 +5,298 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Knowledge Base | OM PhD Candidate</title>
     
+    <!-- Typography: Playfair Display (Serif headers), Lato (Body) -->
+    <!-- Added crossorigin to prevent CORS errors -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Icons: FontAwesome 6 -->
+    <!-- Added integrity check and crossorigin -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- LaTeX Support (MathJax) -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         :root {
-            --bg-color: #fdfbf7; /* Cream/Paper white */
-            --text-main: #2c2c2c; /* Charcoal */
-            --text-light: #666;
-            --accent-color: #8c2f39; /* Academic Dark Red/Maroon - Change to Univ color if preferred */
-            --accent-secondary: #2f3e46; /* Slate Blue */
-            --card-bg: #ffffff;
-            --border-radius: 8px;
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            /* Academic Color Palette */
+            --bg-color: #f8f9fa;       /* Very light grey, easier on eyes than pure white */
+            --paper-color: #ffffff;
+            --text-main: #222222;
+            --text-muted: #666666;
+            --accent-primary: #800000; /* Maroon/Oxford Red */
+            --accent-hover: #5a0000;
+            --border-light: #e0e0e0;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* Reset & Base */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            font-family: 'Lato', sans-serif;
+            /* Fallback to Georgia if Google Fonts fail */
+            font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
-            padding: 0;
-            margin: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Layout Structure */
+        h1, h2, h3 {
+            /* Fallback to Times New Roman if Playfair fails */
+            font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+            font-weight: 700;
+        }
+
+        /* Layout */
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Header / Hero Section */
+        /* Header */
         header {
             text-align: center;
-            padding: 60px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-            animation: fadeIn 1s ease-out;
+            padding: 40px 0 60px;
+            border-bottom: 2px solid var(--accent-primary);
+            margin-bottom: 50px;
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 3.5rem;
             color: var(--text-main);
-            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
         }
 
         .subtitle {
-            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--text-muted);
             font-style: italic;
-            font-size: 1.2rem;
-            color: var(--text-light);
             margin-bottom: 20px;
         }
 
-        .social-links a {
+        .bio {
+            max-width: 600px;
+            margin: 0 auto 25px;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .social-icons a {
             color: var(--text-main);
-            font-size: 1.2rem;
-            margin: 0 10px;
-            transition: var(--transition);
+            font-size: 1.4rem;
+            margin: 0 12px;
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
-        .social-links a:hover {
-            color: var(--accent-color);
-            transform: translateY(-2px);
-        }
+        .social-icons a:hover { color: var(--accent-primary); }
 
-        /* Section Styling */
-        section {
-            margin-bottom: 60px;
-            animation: slideUp 0.8s ease-out forwards;
-            opacity: 0;
-        }
+        /* Sections */
+        section { margin-bottom: 60px; }
 
-        /* Stagger animations */
-        section:nth-child(2) { animation-delay: 0.2s; }
-        section:nth-child(3) { animation-delay: 0.4s; }
-
-        .section-header {
+        .section-title {
             display: flex;
             align-items: center;
             margin-bottom: 30px;
         }
 
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-right: 15px;
-            color: var(--accent-secondary);
+        .section-title h2 {
+            font-size: 2rem;
+            margin-right: 20px;
+            white-space: nowrap;
         }
 
-        .line {
-            flex-grow: 1;
+        .section-line {
             height: 1px;
-            background-color: rgba(0,0,0,0.1);
+            background: var(--border-light);
+            width: 100%;
         }
 
-        /* Grid for Cards */
+        /* Card Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
 
-        /* Cards */
+        /* Academic Card Style */
         .card {
-            background: var(--card-bg);
-            padding: 25px;
-            border: 1px solid rgba(0,0,0,0.05);
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            transition: var(--transition);
+            background: var(--paper-color);
+            border: 1px solid var(--border-light);
+            padding: 30px;
             text-decoration: none;
             color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            border-radius: 4px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             position: relative;
-            overflow: hidden;
         }
 
-        .card::before {
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: var(--accent-primary);
+        }
+
+        /* Small accent line on top of card */
+        .card::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
-            height: 100%;
-            background-color: var(--accent-color);
-            opacity: 0;
-            transition: var(--transition);
+            width: 0%;
+            height: 3px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-        }
-
-        .card:hover::before {
-            opacity: 1;
+        .card:hover::after {
+            width: 100%;
         }
 
         .card-icon {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--accent-secondary);
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 20px;
         }
 
         .card h3 {
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             margin-bottom: 10px;
-            font-weight: 700;
         }
 
         .card p {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            flex-grow: 1; /* Pushes meta to bottom */
+            margin-bottom: 20px;
         }
 
-        .card-meta {
+        .tag {
+            display: inline-block;
             font-size: 0.75rem;
-            color: #999;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: auto;
+            color: #888;
+            border: 1px solid #eee;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
 
         /* Footer */
         footer {
+            margin-top: auto;
             text-align: center;
-            padding: 40px 0;
-            margin-top: 60px;
-            font-size: 0.8rem;
-            color: var(--text-light);
-            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 40px;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-light);
         }
 
-        /* Keyframes */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Mobile Adjustments */
+        /* Mobile Responsiveness */
         @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
+            h1 { font-size: 2.5rem; }
             .container { padding: 20px; }
+            .section-title h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
+
+    <!-- HERO -->
     <header>
         <h1>[Your Name]</h1>
         <p class="subtitle">PhD Candidate in Operations Management</p>
-        <p style="font-size: 0.9rem; color: #555; margin-bottom: 20px;">
-            Researching the intersection of Economics and OM.<br>
-            Focus: Queueing Economics, Information Design & Mechanism Design.
-        </p>
         
-        <div class="social-links">
-            <a href="https://github.com/yourusername" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="mailto:your.email@university.edu" title="Email"><i class="fas fa-envelope"></i></a>
+        <div class="bio">
+            <p><strong>Research Interests:</strong> Queueing Theory, Mechanism Design, and Service Operations.</p>
+        </div>
+
+        <div class="social-icons">
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
             <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
             <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
     </header>
 
+    <!-- KNOWLEDGE SECTION -->
     <section>
-        <div class="section-header">
+        <div class="section-title">
             <h2>Knowledge Base</h2>
-            <div class="line"></div>
+            <div class="section-line"></div>
         </div>
-        
+
         <div class="grid">
-            <a href="./knowledge/queueing-theory.html" class="card">
-                <div>
-                    <div class="card-icon"><i class="fas fa-users-line"></i></div>
-                    <h3>Queueing Theory</h3>
-                    <p>Notes on heavy-traffic approximations, fluid limits, and service system dynamics.</p>
-                </div>
-                <div class="card-meta">Last Updated: Dec 2025</div>
-            </a>
-
-            <a href="./knowledge/information-design.html" class="card">
-                <div>
-                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
-                    <h3>Information Design</h3>
-                    <p>Bayesian persuasion models and information disclosure in service operations.</p>
-                </div>
-                <div class="card-meta">Notes & Proofs</div>
-            </a>
-
-            <a href="./knowledge/game-theory.html" class="card">
-                <div>
-                    <div class="card-icon"><i class="fas fa-chess-board"></i></div>
-                    <h3>Game Theory</h3>
-                    <p>Nash equilibrium concepts, mechanism design, and strategic queuing.</p>
-                </div>
-                <div class="card-meta">Reference</div>
-            </a>
+            <!-- 
+                 NOTE: The href="#" is a placeholder. 
+                 Change it to "./knowledge/filename.html" once you create the page.
+            -->
             
-            <a href="./knowledge/python-sims.html" class="card">
-                <div>
-                    <div class="card-icon"><i class="fab fa-python"></i></div>
-                    <h3>Simulation Code</h3>
-                    <p>Python repositories for stochastic process simulations and numerical experiments.</p>
-                </div>
-                <div class="card-meta">Code Snippets</div>
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fas fa-users"></i></div>
+                <h3>Queueing Theory</h3>
+                <p>Notes on G/G/1 bounds, heavy traffic limits, and fluid approximations.</p>
+                <div><span class="tag">Notes</span></div>
+            </a>
+
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fas fa-brain"></i></div>
+                <h3>Information Design</h3>
+                <p>Literature review on Bayesian persuasion in service systems.</p>
+                <div><span class="tag">Review</span></div>
+            </a>
+
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fas fa-code"></i></div>
+                <h3>Methodology</h3>
+                <p>Python/Julia code snippets for stochastic simulation.</p>
+                <div><span class="tag">Code</span></div>
             </a>
         </div>
     </section>
 
+    <!-- ACADEMIA SECTION -->
     <section>
-        <div class="section-header">
+        <div class="section-title">
             <h2>Academia</h2>
-            <div class="line"></div>
+            <div class="section-line"></div>
         </div>
 
         <div class="grid">
-            <a href="./academia/job-market-paper.pdf" class="card">
-                <div>
-                    <div class="card-icon"><i class="fas fa-file-pdf"></i></div>
-                    <h3>Job Market Paper</h3>
-                    <p>Current working paper: <em>"Optimal Disclosure in Unobservable Queues"</em></p>
-                </div>
-                <div class="card-meta">Draft: Nov 2025</div>
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                <h3>Working Papers</h3>
+                <p><em>"Strategic Queues with Opaque Priority"</em> (Under Review)</p>
+                <div><span class="tag">PDF</span></div>
             </a>
 
-            <a href="./academia/conferences.html" class="card">
-                <div>
-                    <div class="card-icon"><i class="fas fa-microphone-alt"></i></div>
-                    <h3>Conference Schedule</h3>
-                    <p>Upcoming talks at INFORMS, MSOM, and POMS-HK.</p>
-                </div>
-                <div class="card-meta">Schedule</div>
-            </a>
-
-            <a href="./academia/cv.pdf" class="card">
-                <div>
-                    <div class="card-icon"><i class="fas fa-user-tie"></i></div>
-                    <h3>Curriculum Vitae</h3>
-                    <p>Full academic CV, including education, working papers, and teaching experience.</p>
-                </div>
-                <div class="card-meta">PDF Download</div>
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <h3>Teaching</h3>
+                <p>Operations Management 101: Syllabus, slides, and case studies.</p>
+                <div><span class="tag">Material</span></div>
             </a>
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2025 [Your Name]. Built with precision.</p>
-        <p style="margin-top:10px; opacity: 0.6;">
-            \( \lambda_{eff} = \lim_{t \to \infty} \frac{A(t)}{t} \)
+        <p>Updated: December 2025 &bull; Built with simple HTML/CSS</p>
+        <!-- LaTeX Example -->
+        <p style="margin-top:15px;">
+            \( \mathbb{E}[W] = \frac{\rho}{1-\rho} \cdot \frac{C_a^2 + C_s^2}{2} \cdot \mathbb{E}[S] \)
         </p>
     </footer>
 
