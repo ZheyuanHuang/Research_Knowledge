@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WINE Conference - Web and Internet Economics</title>
+    <style>
+        :root {
+            --color-primary: #2180A3;
+            --color-secondary: #32b8c6;
+            --color-bg: #f5f5f5;
+            --color-surface: #ffffff;
+            --color-text: #1a1a1a;
+            --color-text-light: #666;
+            --color-accent: #ff6b35;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            padding: var(--spacing-xl);
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        nav {
+            background: var(--color-surface);
+            padding: var(--spacing-md) 0;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            padding: 0 var(--spacing-md);
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            padding: var(--spacing-sm) var(--spacing-md);
+            transition: all 0.3s ease;
+            border-radius: var(--radius);
+        }
+
+        nav button:hover {
+            background: rgba(33, 128, 163, 0.1);
+            color: var(--color-secondary);
+        }
+
+        nav button.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-xl);
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--color-surface);
+            border-radius: var(--radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .card h3 {
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.3em;
+        }
+
+        .card p {
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-light);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, rgba(33, 128, 163, 0.1), rgba(50, 184, 198, 0.1));
+            padding: var(--spacing-lg);
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid rgba(33, 128, 163, 0.2);
+        }
+
+        .stat-box .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stat-box .label {
+            color: var(--color-text-light);
+            font-size: 0.95em;
+        }
+
+        .topic-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .topic-item {
+            background: rgba(33, 128, 163, 0.05);
+            padding: var(--spacing-md);
+            border-radius: var(--radius);
+            border: 1px solid rgba(33, 128, 163, 0.15);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+        }
+
+        .topic-item:before {
+            content: "✓";
+            color: var(--color-secondary);
+            font-weight: bold;
+            font-size: 1.3em;
+            flex-shrink: 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child):before {
+            content: "";
+            position: absolute;
+            left: 20px;
+            top: 50px;
+            width: 2px;
+            height: 30px;
+            background: var(--color-primary);
+        }
+
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-right: var(--spacing-md);
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--color-surface);
+            padding: var(--spacing-md);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .timeline-content h4 {
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .timeline-content p {
+            color: var(--color-text-light);
+            font-size: 0.95em;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.05));
+            padding: var(--spacing-md);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--color-accent);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .highlight strong {
+            color: var(--color-accent);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin: var(--spacing-lg) 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--color-surface);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(33, 128, 163, 0.05);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            background: var(--color-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33, 128, 163, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(33, 128, 163, 0.1);
+            color: var(--color-primary);
+            border: 1px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        footer {
+            background: var(--color-primary);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            nav ul {
+                gap: var(--spacing-sm);
+            }
+
+            nav button {
+                padding: var(--spacing-sm);
+                font-size: 0.9em;
+            }
+
+            .container {
+                padding: var(--spacing-md);
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌐 WINE Conference</h1>
+        <p>Web and Internet Economics: 20 Years of Interdisciplinary Excellence</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><button class="nav-btn active" data-section="overview">Overview</button></li>
+            <li><button class="nav-btn" data-section="about">About WINE</button></li>
+            <li><button class="nav-btn" data-section="topics">Research Topics</button></li>
+            <li><button class="nav-btn" data-section="history">History</button></li>
+            <li><button class="nav-btn" data-section="upcoming">Upcoming Conferences</button></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Overview Section -->
+        <section id="overview" class="active">
+            <h2 style="color: var(--color-primary); margin-bottom: var(--spacing-lg); font-size: 2em;">Overview</h2>
+            
+            <div class="grid">
+                <div class="stat-box">
+                    <div class="number">21</div>
+                    <div class="label">Annual Conferences</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">2005</div>
+                    <div class="label">Year Founded</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">Global</div>
+                    <div class="label">Research Community</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>What is WINE?</h3>
+                <p>The <strong>Conference on Web and Internet Economics (WINE)</strong> is a premier international forum dedicated to exploring the intersection of algorithmic theory, computational complexity, and economic principles in the context of the Internet and the World Wide Web.</p>
+                <p>Originally called the Workshop on Internet and Network Economics (until 2013), WINE has evolved into a leading platform where researchers from diverse disciplines converge to address fundamental questions about incentives, computation, and market design in digital ecosystems.</p>
+            </div>
+
+            <div class="highlight">
+                <strong>🎯 Mission:</strong> To foster interdisciplinary research on incentive mechanisms, computational aspects of economics, and their applications to Internet-scale problems involving millions of diverse participants.
+            </div>
+        </section>
+
+        <!-- About WINE Section -->
+        <section id="about">
+            <h2 style="color: var(--color-primary); margin-bottom: var(--spacing-lg); font-size: 2em;">About WINE</h2>
+
+            <div class="card">
+                <h3>Interdisciplinary Approach</h3>
+                <p>WINE brings together researchers from multiple fields:</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md); margin: var(--spacing-lg) 0;">
+                    <div style="background: rgba(33, 128, 163, 0.05); padding: var(--spacing-md); border-radius: var(--radius); text-align: center;">
+                        <strong>Theoretical CS</strong>
+                    </div>
+                    <div style="background: rgba(33, 128, 163, 0.05); padding: var(--spacing-md); border-radius: var(--radius); text-align: center;">
+                        <strong>Artificial Intelligence</strong>
+                    </div>
+                    <div style="background: rgba(33, 128, 163, 0.05); padding: var(--spacing-md); border-radius: var(--radius); text-align: center;">
+                        <strong>Operations Research</strong>
+                    </div>
+                    <div style="background: rgba(33, 128, 163, 0.05); padding: var(--spacing-md); border-radius: var(--radius); text-align: center;">
+                        <strong>Economics</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Why WINE Matters</h3>
+                <p><strong>The Internet has fundamentally transformed economics.</strong> Problems such as resource allocation, mechanism design, and market equilibrium now occur at unprecedented scale with millions of autonomous agents. WINE addresses these challenges by combining:</p>
+                <ul style="margin: var(--spacing-lg) 0; padding-left: var(--spacing-lg);">
+                    <li style="margin: var(--spacing-md) 0;"><strong>Algorithmic Analysis:</strong> Understanding computational complexity of economic problems</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Game Theory:</strong> Modeling strategic behavior in decentralized systems</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Mechanism Design:</strong> Creating incentive-compatible protocols and markets</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Empirical Study:</strong> Analyzing real-world Internet and platform ecosystems</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Publication & Recognition</h3>
+                <p>WINE proceedings are published by <strong>Springer-Verlag</strong>, one of the world's leading academic publishers. Selected papers are invited for extended publication in <strong>ACM Transactions on Economics and Computation (TEAC)</strong>, a top-tier venue for peer-reviewed research in algorithmic game theory and computational economics.</p>
+            </div>
+        </section>
+
+        <!-- Research Topics Section -->
+        <section id="topics">
+            <h2 style="color: var(--color-primary); margin-bottom: var(--spacing-lg); font-size: 2em;">Research Topics</h2>
+
+            <div class="card">
+                <h3>Core Research Areas</h3>
+                <div class="topic-list">
+                    <div class="topic-item">Mechanism Design & Game Theory</div>
+                    <div class="topic-item">Auctions & Pricing Strategies</div>
+                    <div class="topic-item">Computational Advertising</div>
+                    <div class="topic-item">Fair Division & Resource Allocation</div>
+                    <div class="topic-item">Market Design & Matching</div>
+                    <div class="topic-item">Computational Social Choice</div>
+                    <div class="topic-item">Blockchain & Cryptocurrencies</div>
+                    <div class="topic-item">Online Platforms & Network Effects</div>
+                    <div class="topic-item">Revenue Management</div>
+                    <div class="topic-item">Information Design</div>
+                    <div class="topic-item">Privacy & Security in Markets</div>
+                    <div class="topic-item">Learning in Games & Markets</div>
+                    <div class="topic-item">Behavioral Economics & ML</div>
+                    <div class="topic-item">Contract Design</div>
+                    <div class="topic-item">Coalitions & Coordination</div>
+                    <div class="topic-item">Network Games & Effects</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Real-World Applications</h3>
+                <p>WINE research directly applies to pressing problems in modern digital economies:</p>
+                <ul style="margin: var(--spacing-lg) 0; padding-left: var(--spacing-lg);">
+                    <li style="margin: var(--spacing-md) 0;"><strong>Search & Advertising Markets:</strong> How search engines allocate ad slots fairly and efficiently</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Ride-Sharing Platforms:</strong> Dynamic pricing and matching algorithms (Uber, Lyft)</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>E-Commerce:</strong> Recommendation systems and seller-buyer matching (Amazon, eBay)</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Blockchain & Web3:</strong> Incentive mechanisms for decentralized networks</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Social Networks:</strong> Information flow, viral marketing, and network effects</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Cloud Computing:</strong> Resource allocation and pricing in IaaS/PaaS markets</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- History Section -->
+        <section id="history">
+            <h2 style="color: var(--color-primary); margin-bottom: var(--spacing-lg); font-size: 2em;">20-Year History & Milestones</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot">1</div>
+                    <div class="timeline-content">
+                        <h4>2005: Workshop Origins</h4>
+                        <p>WINE begins as the "Workshop on Internet and Network Economics" with the inaugural gathering of researchers interested in economic aspects of the Internet.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">2</div>
+                    <div class="timeline-content">
+                        <h4>2010s: Explosive Growth</h4>
+                        <p>The workshop matures into a full conference. Research expands to include blockchain, crowdsourcing, and platform economics. Proceedings published by Springer-Verlag.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">3</div>
+                    <div class="timeline-content">
+                        <h4>2013: Rebranding to WINE</h4>
+                        <p>Renamed to "Conference on Web and Internet Economics" reflecting its expanded scope and maturity as a premier venue for the interdisciplinary community.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">4</div>
+                    <div class="timeline-content">
+                        <h4>2015-2019: Global Reach</h4>
+                        <p>WINE conferences held in leading research centers worldwide: New York, Bangalore, Oxford, and more. Community grows with 300+ researchers annually.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">5</div>
+                    <div class="timeline-content">
+                        <h4>2020: Virtual Expansion</h4>
+                        <p>WINE 2020 (held at Peking University) reaches record 300+ attendees. First major virtual conference, enabling global participation. ACM TEAC special issues established.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">6</div>
+                    <div class="timeline-content">
+                        <h4>2021-2025: Continued Excellence</h4>
+                        <p>Recent conferences in Potsdam, Troy, Shanghai, and Edinburgh showcase cutting-edge research in emerging areas: Web3, AI economics, fairness in algorithms, and pandemic resource allocation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Conferences Section -->
+        <section id="upcoming">
+            <h2 style="color: var(--color-primary); margin-bottom: var(--spacing-lg); font-size: 2em;">Upcoming Conferences</h2>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Conference</th>
+                            <th>Dates</th>
+                            <th>Location</th>
+                            <th>Host Institution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>WINE 2025</strong></td>
+                            <td>December 8-11, 2025</td>
+                            <td>New Brunswick, USA</td>
+                            <td>Rutgers University</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WINE 2026</strong></td>
+                            <td>TBA</td>
+                            <td>TBA</td>
+                            <td>TBA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>How to Participate in WINE 2025</h3>
+                <div style="margin: var(--spacing-lg) 0;">
+                    <p><strong>Submission Categories:</strong></p>
+                    <ul style="margin: var(--spacing-md) 0 var(--spacing-lg) var(--spacing-lg);">
+                        <li>Full Research Papers (original contributions)</li>
+                        <li>Poster Presentations</li>
+                        <li>Tutorial Proposals</li>
+                        <li>Workshop Proposals</li>
+                    </ul>
+                </div>
+                <p style="margin: var(--spacing-lg) 0;"><strong>Selection Criteria:</strong> All submissions undergo rigorous peer review focused on quality of contribution, originality, soundness, and significance to the WINE community.</p>
+                <p style="margin: var(--spacing-lg) 0;"><strong>Published Proceedings:</strong> Accepted papers appear in Springer-Verlag proceedings. Top papers invited to ACM Transactions on Economics and Computation (TEAC) special issue.</p>
+                <a href="https://wine2025.cs.rutgers.edu" class="btn" target="_blank" rel="noopener noreferrer">Visit WINE 2025 Website</a>
+            </div>
+
+            <div class="card">
+                <h3>Why Attend or Submit?</h3>
+                <ul style="margin: var(--spacing-lg) 0; padding-left: var(--spacing-lg);">
+                    <li style="margin: var(--spacing-md) 0;"><strong>Network:</strong> Connect with leading researchers in algorithmic game theory, market design, and computational economics</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Visibility:</strong> Publish in Springer-Verlag proceedings with potential publication in top-tier ACM TEAC</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Impact:</strong> Contribute to research shaping the future of digital markets and Internet platforms</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Collaborations:</strong> Find collaborators across CS, economics, operations research, and AI communities</li>
+                    <li style="margin: var(--spacing-md) 0;"><strong>Learning:</strong> Attend keynotes and tutorials on emerging topics in Web and Internet economics</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 WINE Conference Series. An interdisciplinary forum for Web and Internet Economics.</p>
+        <p style="font-size: 0.9em; margin-top: var(--spacing-md); opacity: 0.9;">Conference website: <a href="https://wine2025.cs.rutgers.edu" style="color: white; text-decoration: underline;">wine2025.cs.rutgers.edu</a></p>
+    </footer>
+
+    <script>
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                
+                // Remove active class from all buttons and sections
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(section => section.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding section
+                this.classList.add('active');
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

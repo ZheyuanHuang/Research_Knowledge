@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICIS - International Conference on Information Systems</title>
+    <style>
+        :root {
+            --color-primary: #1e3a5f;
+            --color-secondary: #2b5a9e;
+            --color-accent: #32b8c6;
+            --color-text: #1f2937;
+            --color-light-bg: #f8fafc;
+            --color-white: #ffffff;
+            --color-border: #e5e7eb;
+            --color-highlight: #fef3c7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-white);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: var(--color-white);
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        section h2 {
+            color: var(--color-primary);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--color-accent);
+            padding-bottom: 10px;
+        }
+
+        section h3 {
+            color: var(--color-secondary);
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background-color: var(--color-light-bg);
+            border-left: 4px solid var(--color-accent);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: var(--color-primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background-color: var(--color-light-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card .number {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            font-size: 1em;
+            color: var(--color-secondary);
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--color-light-bg);
+        }
+
+        tr:hover {
+            background-color: #f0f7ff;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 40px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+            border: 3px solid var(--color-primary);
+        }
+
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 20px;
+            width: 3px;
+            height: 30px;
+            background-color: var(--color-accent);
+        }
+
+        .timeline-item:last-child:after {
+            display: none;
+        }
+
+        .timeline-item strong {
+            color: var(--color-primary);
+            font-size: 1.1em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 8px 16px rgba(50, 184, 198, 0.15);
+        }
+
+        .feature-card h4 {
+            color: var(--color-secondary);
+            margin-bottom: 12px;
+            font-size: 1.15em;
+        }
+
+        .feature-card p {
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        footer {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .button-link {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .button-link:hover {
+            background-color: #2a9ba7;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            section h2 {
+                font-size: 1.4em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ICIS</h1>
+        <p>International Conference on Information Systems</p>
+        <p style="font-size: 1em; margin-top: 10px;">The Flagship Conference of the Association for Information Systems</p>
+    </header>
+
+    <div class="container">
+        <!-- Overview Section -->
+        <section>
+            <h2>Overview</h2>
+            <p>The <strong>International Conference on Information Systems (ICIS)</strong> is the most prestigious and exclusive annual gathering of academics and research-oriented practitioners in the field of information systems worldwide. Hosted by the Association for Information Systems (AIS), an international professional organization, ICIS stands as one of the most selective and high-impact conferences in the entire field.</p>
+            
+            <div class="highlight-box">
+                <strong>Key Identity:</strong> ICIS is recognized as the flagship conference of the Association for Information Systems and attracts the top research papers in the information systems field, along with their authors, from more than 95 countries for invaluable networking and scholarly exchange.
+            </div>
+
+            <h3>Conference Characteristics</h3>
+            <ul>
+                <li><strong>Annual Event:</strong> Held every year, typically in early December</li>
+                <li><strong>Duration:</strong> Four-day conference format</li>
+                <li><strong>Global Participation:</strong> Attracts scholars and practitioners from over 95 countries</li>
+                <li><strong>Selective Venue:</strong> Highly exclusive with rigorous peer-review process</li>
+                <li><strong>Research Focus:</strong> Emphasizes original, high-quality research in information systems</li>
+            </ul>
+        </section>
+
+        <!-- Historical Background Section -->
+        <section>
+            <h2>Historical Background</h2>
+            
+            <h3>Foundation and Early Years</h3>
+            <p>ICIS was founded in 1980 at the University of California, Los Angeles (UCLA). The first conference was held in Philadelphia in the same year, marking the beginning of a legacy that would establish it as the premier venue for information systems research. Originally known as the Conference on Information Systems (CIS), the conference later expanded its international reach and adopted the name International Conference on Information Systems.</p>
+
+            <h3>International Expansion</h3>
+            <p>A significant milestone occurred in 1990 when ICIS held its first international venue in Copenhagen, Denmark. This expansion marked a strategic shift toward becoming a truly global conference. Since then, ICIS has been intentionally rotated across different geographic regions to promote international participation and diverse scholarly perspectives.</p>
+
+            <h3>Regional Rotation System</h3>
+            <p>To ensure truly global representation and accessibility, ICIS currently rotates its annual conference among three major AIS regions:</p>
+            <ul>
+                <li><strong>Region 1 (Americas):</strong> North America and South America</li>
+                <li><strong>Region 2 (Europe/Middle East/Africa):</strong> Europe, Middle East, and Africa</li>
+                <li><strong>Region 3 (Asia/Australia/Pacific):</strong> Asia, Australia, and Pacific regions</li>
+            </ul>
+            <p>This rotation system ensures that the conference remains geographically balanced and accessible to researchers and practitioners from all parts of the world.</p>
+        </section>
+
+        <!-- Key Statistics Section -->
+        <section>
+            <h2>Conference Impact &amp; Reach</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">45+</div>
+                    <div class="label">Years of Excellence</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">95+</div>
+                    <div class="label">Countries Represented</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">25+</div>
+                    <div class="label">Research Tracks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">~1,000+</div>
+                    <div class="label">Attendees Annually</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ICIS 2025 Section -->
+        <section>
+            <h2>ICIS 2025</h2>
+            <p><strong>Location:</strong> Nashville, Tennessee, United States</p>
+            <p><strong>Theme:</strong> "Achieving Digital Integration in the Age of AI"</p>
+            
+            <div class="highlight-box">
+                <strong>Conference Dates:</strong> December 14-17, 2025
+            </div>
+
+            <h3>2025 Conference Focus</h3>
+            <p>ICIS 2025, themed "Achieving Digital Integration in the Age of AI," invites scholars and practitioners to explore how artificial intelligence can unify diverse digital systems, enhance interoperability, and drive innovation across industries. The conference will examine AI's transformative impact on critical sectors including:</p>
+            <ul>
+                <li>Financial Technology (FinTech)</li>
+                <li>Supply Chain and Logistics</li>
+                <li>Digital Entertainment</li>
+                <li>Social and Media Ecosystems</li>
+                <li>Healthcare and Life Sciences</li>
+            </ul>
+
+            <h3>2025 Conference Components</h3>
+            <ul>
+                <li><strong>Research Paper Tracks:</strong> 25+ tracks covering all areas of IS research</li>
+                <li><strong>Completed Research Papers:</strong> High-quality empirical and theoretical research</li>
+                <li><strong>Short Papers:</strong> Work in progress and emerging research</li>
+                <li><strong>Panel Discussions:</strong> Expert conversations on critical topics</li>
+                <li><strong>Professional Development Workshops:</strong> Skills and knowledge enhancement</li>
+                <li><strong>Digital Leadership Forum:</strong> Forum for CIOs and digital leaders</li>
+                <li><strong>Special Events:</strong> TREOs (Teaching Research Engagement Opportunities) and Paper-a-thon</li>
+            </ul>
+
+            <p><strong>Submission Dates:</strong> Submissions opened on March 12, 2025</p>
+        </section>
+
+        <!-- ICIS Doctoral Consortium Section -->
+        <section>
+            <h2>ICIS Doctoral Consortium</h2>
+            <p>The ICIS Doctoral Consortium is a premier development opportunity held in conjunction with the main conference, typically at a nearby location before the main conference begins. This selective program brings together:</p>
+            <ul>
+                <li>Senior faculty members with extensive experience in information systems research</li>
+                <li>Approximately 40 doctoral students, carefully selected from around 120 nominations</li>
+                <li>Each university or institution may nominate only one doctoral student participant</li>
+            </ul>
+            <p>The consortium provides doctoral students with mentorship, feedback on their dissertation research, and valuable networking opportunities with leading scholars in the field. It has become a crucial launching point for many information systems scholars' careers.</p>
+        </section>
+
+        <!-- Association for Information Systems Section -->
+        <section>
+            <h2>The Association for Information Systems (AIS)</h2>
+            <p>ICIS is hosted and organized by the <strong>Association for Information Systems (AIS)</strong>, an international professional organization dedicated to advancing information systems as a discipline and profession. AIS is committed to:</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>Global Community Building</h4>
+                    <p>Fostering a worldwide community of information systems scholars, researchers, and practitioners committed to advancing the field.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Research Excellence</h4>
+                    <p>Promoting rigorous, high-quality research that advances theoretical understanding and practical application in information systems.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Knowledge Dissemination</h4>
+                    <p>Facilitating the sharing of research findings, best practices, and innovations through its flagship conferences and publications.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Professional Development</h4>
+                    <p>Supporting the career development of IS scholars at all stages, from doctoral students to established researchers.</p>
+                </div>
+            </div>
+
+            <p>AIS maintains an extensive eLibrary that makes decades of ICIS research papers freely accessible to the academic community, promoting open access to scientific knowledge.</p>
+        </section>
+
+        <!-- Past Conferences Section -->
+        <section>
+            <h2>Recent Conference Locations</h2>
+            <p>ICIS continues its tradition of rotating globally. Recent and upcoming conferences include:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Location</th>
+                        <th>Country/Region</th>
+                        <th>AIS Region</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025</td>
+                        <td>Nashville, Tennessee</td>
+                        <td>United States</td>
+                        <td>Americas (Region 1)</td>
+                    </tr>
+                    <tr>
+                        <td>2022</td>
+                        <td>Copenhagen</td>
+                        <td>Denmark</td>
+                        <td>Europe/Middle East/Africa (Region 2)</td>
+                    </tr>
+                    <tr>
+                        <td>2021</td>
+                        <td>Austin, Texas</td>
+                        <td>United States</td>
+                        <td>Americas (Region 1)</td>
+                    </tr>
+                    <tr>
+                        <td>2020</td>
+                        <td>Virtual Conference</td>
+                        <td>Global</td>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>2019</td>
+                        <td>Munich</td>
+                        <td>Germany</td>
+                        <td>Europe/Middle East/Africa (Region 2)</td>
+                    </tr>
+                    <tr>
+                        <td>2018</td>
+                        <td>San Francisco, California</td>
+                        <td>United States</td>
+                        <td>Americas (Region 1)</td>
+                    </tr>
+                    <tr>
+                        <td>2017</td>
+                        <td>Seoul</td>
+                        <td>South Korea</td>
+                        <td>Asia/Australia/Pacific (Region 3)</td>
+                    </tr>
+                    <tr>
+                        <td>2016</td>
+                        <td>Dublin</td>
+                        <td>Ireland</td>
+                        <td>Europe/Middle East/Africa (Region 2)</td>
+                    </tr>
+                    <tr>
+                        <td>2015</td>
+                        <td>Fort Worth, Texas</td>
+                        <td>United States</td>
+                        <td>Americas (Region 1)</td>
+                    </tr>
+                    <tr>
+                        <td>2014</td>
+                        <td>Auckland</td>
+                        <td>New Zealand</td>
+                        <td>Asia/Australia/Pacific (Region 3)</td>
+                    </tr>
+                    <tr>
+                        <td>2011</td>
+                        <td>Shanghai</td>
+                        <td>China</td>
+                        <td>Asia/Australia/Pacific (Region 3)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Research Areas Section -->
+        <section>
+            <h2>Areas of Research &amp; Tracks</h2>
+            <p>ICIS encompasses a comprehensive range of information systems research areas. With 25+ dedicated tracks, the conference covers:</p>
+            
+            <ul>
+                <li><strong>IS Foundations:</strong> Theory, philosophy, and conceptual frameworks in IS</li>
+                <li><strong>IT Infrastructure &amp; Architecture:</strong> Systems design, cloud computing, and IT governance</li>
+                <li><strong>Data Science &amp; Analytics:</strong> Big data, business intelligence, and advanced analytics</li>
+                <li><strong>Artificial Intelligence &amp; Machine Learning:</strong> AI applications, automation, and intelligent systems</li>
+                <li><strong>Cybersecurity &amp; Privacy:</strong> Security management, data protection, and risk</li>
+                <li><strong>Digital Business &amp; E-Commerce:</strong> Digital transformation, digital entrepreneurship, and online business</li>
+                <li><strong>Organizational Issues:</strong> IS management, organizational change, and IS strategy</li>
+                <li><strong>IS in Society:</strong> Social implications, digital divide, and ICT4D (Information and Communication Technology for Development)</li>
+                <li><strong>Global Information Systems:</strong> International IS issues, cultural dimensions, and global collaboration</li>
+                <li><strong>Healthcare IT:</strong> Health information systems and digital health solutions</li>
+                <li><strong>IT Project Management:</strong> Agile methods, software development practices, and project success</li>
+                <li><strong>Human-Computer Interaction:</strong> User experience, usability, and interaction design</li>
+            </ul>
+        </section>
+
+        <!-- Significance &amp; Impact Section -->
+        <section>
+            <h2>Significance &amp; Academic Impact</h2>
+            <p>ICIS holds tremendous significance within the academic and professional information systems community:</p>
+            
+            <div class="highlight-box">
+                <strong>Prestigious Venue:</strong> Publication at ICIS is considered a major achievement for IS researchers and significantly impacts academic careers, promotions, and funding prospects.
+            </div>
+
+            <h3>Why ICIS Matters</h3>
+            <ul>
+                <li><strong>Quality of Research:</strong> The rigorous peer-review process ensures only the highest quality research is presented</li>
+                <li><strong>Exclusive Selection:</strong> High rejection rate (typically around 20-25% acceptance) ensures only the best work is presented</li>
+                <li><strong>Career Advancement:</strong> Presenting at ICIS significantly enhances researchers' professional visibility and credibility</li>
+                <li><strong>Networking Opportunities:</strong> The conference brings together the world's leading IS researchers and practitioners for collaboration</li>
+                <li><strong>Knowledge Advancement:</strong> ICIS drives the evolution of information systems thinking and practice</li>
+                <li><strong>Industry-Academia Connection:</strong> The conference bridges the gap between academic research and industry applications</li>
+                <li><strong>Diversity of Perspectives:</strong> Global participation ensures diverse methodological approaches and cultural viewpoints</li>
+            </ul>
+        </section>
+
+        <!-- Key Features Section -->
+        <section>
+            <h2>Key Features of ICIS</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>Rigorous Review Process</h4>
+                    <p>Double-blind peer review ensures objective evaluation of all submissions and maintains the highest standards of research quality.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Diverse Research Formats</h4>
+                    <p>Accepts completed research papers, short papers, panels, workshops, and other innovative formats for knowledge sharing.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Multi-Disciplinary Approach</h4>
+                    <p>Brings together perspectives from computer science, business, social sciences, and other disciplines to enrich IS research.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Networking Platform</h4>
+                    <p>Provides extensive opportunities for researchers to network, collaborate, and build lasting professional relationships.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Global Accessibility</h4>
+                    <p>Through regional rotation and diverse representation, ICIS maintains accessibility for researchers worldwide.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Open Access Repository</h4>
+                    <p>AIS eLibrary provides free access to decades of ICIS research papers, promoting open science and knowledge sharing.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Involved Section -->
+        <section>
+            <h2>Getting Involved with ICIS</h2>
+            
+            <h3>For Researchers &amp; Scholars</h3>
+            <ul>
+                <li><strong>Submit Research Papers:</strong> Submit your original research as a completed paper or short paper</li>
+                <li><strong>Propose Panels:</strong> Organize panel discussions on emerging topics</li>
+                <li><strong>Lead Workshops:</strong> Conduct professional development workshops</li>
+                <li><strong>Apply to Doctoral Consortium:</strong> If you are a doctoral student, seek nomination through your institution</li>
+                <li><strong>Serve as Reviewer:</strong> Contribute to the peer-review process as an AIS member</li>
+            </ul>
+
+            <h3>For Practitioners &amp; Industry Professionals</h3>
+            <ul>
+                <li><strong>Attend the Conference:</strong> Learn about cutting-edge IS research and industry trends</li>
+                <li><strong>Participate in Forums:</strong> Engage with the Digital Leadership Forum and industry track discussions</li>
+                <li><strong>Network with Researchers:</strong> Build connections with leading information systems experts</li>
+                <li><strong>Share Insights:</strong> Participate in practitioner-oriented panels and discussions</li>
+            </ul>
+
+            <h3>Membership</h3>
+            <p>To fully participate in ICIS and access all benefits, consider joining the Association for Information Systems. AIS membership provides access to:</p>
+            <ul>
+                <li>AIS eLibrary (free access to IS research)</li>
+                <li>The Journal of the Association for Information Systems (JAIS)</li>
+                <li>Discounted conference registration fees</li>
+                <li>Networking opportunities with global IS community</li>
+                <li>Professional development resources</li>
+            </ul>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section>
+            <h2>Conclusion</h2>
+            <p>The International Conference on Information Systems (ICIS) stands as the premier global forum for information systems research and practice. With its 45+ year history, global reach spanning 95+ countries, and rigorous commitment to research excellence, ICIS continues to shape the future of information systems theory and practice. Whether you are a doctoral student, early-career researcher, established scholar, or industry practitioner, ICIS provides an invaluable platform for learning, discovery, collaboration, and professional growth in the dynamic field of information systems.</p>
+            
+            <div class="highlight-box">
+                <strong>Join the Global IS Community:</strong> ICIS invites you to be part of the world's most prestigious information systems conference. Discover how you can contribute to and benefit from this thriving community of scholars and practitioners shaping the digital future.
+            </div>
+
+            <a href="https://icis2025.aisconferences.org" class="button-link" target="_blank">Visit ICIS 2025 Official Website</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Information About ICIS - International Conference on Information Systems</p>
+        <p>ICIS is hosted by the <a href="https://www.aisnet.org" target="_blank">Association for Information Systems (AIS)</a></p>
+        <p style="margin-top: 20px; font-size: 0.9em;">For more information, visit <a href="https://aisel.aisnet.org/icis/" target="_blank">AIS eLibrary ICIS Archive</a></p>
+    </footer>
+</body>
+</html>

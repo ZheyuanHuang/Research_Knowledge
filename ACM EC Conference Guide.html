@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACM EC Conference Guide</title>
+    <style>
+        :root {
+            --color-primary: #2180a0;
+            --color-primary-hover: #1a6b84;
+            --color-bg: #f5f5f5;
+            --color-surface: #ffffff;
+            --color-text: #1a1a1a;
+            --color-text-light: #666;
+            --color-accent-1: #e8f4f8;
+            --color-accent-2: #fff4e6;
+            --color-accent-3: #e8f5e9;
+            --color-accent-4: #f3e5f5;
+            --color-border: #ddd;
+            --spacing-sm: 12px;
+            --spacing-md: 20px;
+            --spacing-lg: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #1a6b84 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+
+        header .next-event {
+            font-weight: 500;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        nav {
+            background: var(--color-surface);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        nav button:hover {
+            background: var(--color-accent-1);
+            color: var(--color-primary-hover);
+        }
+
+        nav button.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        main {
+            padding: var(--spacing-lg) 0;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        .card {
+            background: var(--color-surface);
+            border-radius: 8px;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .card p {
+            color: var(--color-text-light);
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            border-left: 4px solid var(--color-primary);
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            background: var(--color-accent-1);
+            border-radius: 4px;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .topic-item {
+            background: var(--color-surface);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            border-left: 4px solid var(--color-primary);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        .topic-item h4 {
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .topic-item ul {
+            list-style-position: inside;
+            color: var(--color-text-light);
+            font-size: 0.95em;
+        }
+
+        .topic-item li {
+            margin-bottom: 6px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #2180a0 0%, #1a6b84 100%);
+            color: white;
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+
+        .timeline {
+            position: relative;
+            padding: var(--spacing-md) 0;
+        }
+
+        .timeline-item {
+            padding-left: 40px;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            border: 3px solid var(--color-surface);
+            box-shadow: 0 0 0 3px var(--color-primary);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 25px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background: var(--color-border);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-item h4 {
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .timeline-item p {
+            color: var(--color-text-light);
+            margin: 5px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge.highlight {
+            background: #ff6b6b;
+        }
+
+        .badge.success {
+            background: #51cf66;
+        }
+
+        footer {
+            background: var(--color-surface);
+            padding: var(--spacing-lg);
+            text-align: center;
+            color: var(--color-text-light);
+            border-top: 1px solid var(--color-border);
+            margin-top: var(--spacing-lg);
+        }
+
+        footer p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: var(--spacing-md) 0;
+        }
+
+        button.btn-primary {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button.btn-primary:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin: var(--spacing-md) 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--color-surface);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        th {
+            background: var(--color-primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--color-border);
+            color: var(--color-text-light);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .topic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ACM EC Conference</h1>
+        <p>Economics and Computation</p>
+        <div class="next-event">📍 Stanford University | July 7-10, 2025</div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><button class="nav-btn active" data-section="overview">Overview</button></li>
+            <li><button class="nav-btn" data-section="topics">Research Topics</button></li>
+            <li><button class="nav-btn" data-section="history">History</button></li>
+            <li><button class="nav-btn" data-section="community">Community</button></li>
+            <li><button class="nav-btn" data-section="details">Details</button></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- Overview Section -->
+        <section id="overview" class="active">
+            <h2 class="section-title">📚 Conference Overview</h2>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="number">26</div>
+                    <div class="label">Edition in 2025</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">Since 1999</div>
+                    <div class="label">Leading Conference</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">SIGecom</div>
+                    <div class="label">Sponsored by ACM</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">Multi-disciplinary</div>
+                    <div class="label">Economics + CS</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>What is ACM EC?</h3>
+                <p>The ACM Conference on Economics and Computation (EC) is the leading scientific conference on advances in theory, empirics, and applications at the interface of economics and computation. Since its inception in 1999, EC has been sponsored by the ACM Special Interest Group on Economics and Computation (SIGecom).</p>
+                <p>The conference brings together researchers and practitioners who are revolutionizing how we understand markets, design systems, and solve real-world economic challenges using computational thinking.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h3>🎯 Core Mission</h3>
+                <p>To incorporate theories of economic and strategic interaction into the design of computational systems that provide platforms for human and commercial interaction on the Internet. EC demonstrates how computational models improve our economic understanding of Internet-based markets and social networks.</p>
+            </div>
+
+            <div class="card">
+                <h3>Key Focus Areas</h3>
+                <ul style="list-style-position: inside; color: var(--color-text-light);">
+                    <li><strong>Theory:</strong> Algorithmic game theory, mechanism design, and market equilibrium</li>
+                    <li><strong>Empirics:</strong> Lab experiments, field experiments, and data-driven analysis</li>
+                    <li><strong>Applications:</strong> Real-world implementations in e-commerce, digital platforms, and online markets</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Research Topics Section -->
+        <section id="topics">
+            <h2 class="section-title">🔬 Research Topics & Areas</h2>
+
+            <p style="margin-bottom: var(--spacing-md); color: var(--color-text-light);">EC'25 invites submissions across a broad spectrum of research areas at the intersection of economics and computation:</p>
+
+            <div class="topic-grid">
+                <div class="topic-item" style="background: var(--color-accent-1);">
+                    <h4>📊 Market Design & Mechanisms</h4>
+                    <ul>
+                        <li>Auction theory and design</li>
+                        <li>Mechanism design</li>
+                        <li>Matching markets</li>
+                        <li>Pricing strategies</li>
+                    </ul>
+                </div>
+
+                <div class="topic-item" style="background: var(--color-accent-2);">
+                    <h4>🤖 AI & Learning Economics</h4>
+                    <ul>
+                        <li>Economic aspects of AI</li>
+                        <li>Neural networks &amp; LLMs economics</li>
+                        <li>Learning algorithms</li>
+                        <li>Behavioral economics</li>
+                    </ul>
+                </div>
+
+                <div class="topic-item" style="background: var(--color-accent-3);">
+                    <h4>⛓️ Blockchain & Crypto</h4>
+                    <ul>
+                        <li>Cryptocurrencies</li>
+                        <li>Smart contracts</li>
+                        <li>DeFi protocols</li>
+                        <li>Blockchain markets</li>
+                    </ul>
+                </div>
+
+                <div class="topic-item" style="background: var(--color-accent-4);">
+                    <h4>🛡️ Privacy & Fairness</h4>
+                    <ul>
+                        <li>Algorithmic fairness</li>
+                        <li>Data privacy</li>
+                        <li>Ethical considerations</li>
+                        <li>Social good</li>
+                    </ul>
+                </div>
+
+                <div class="topic-item" style="background: var(--color-accent-1);">
+                    <h4>📱 Online Markets</h4>
+                    <ul>
+                        <li>Platform economics</li>
+                        <li>Crowdsourcing</li>
+                        <li>Online algorithms</li>
+                        <li>Labor markets</li>
+                    </ul>
+                </div>
+
+                <div class="topic-item" style="background: var(--color-accent-2);">
+                    <h4>📈 Analysis & Theory</h4>
+                    <ul>
+                        <li>Equilibrium computation</li>
+                        <li>Price of anarchy</li>
+                        <li>Market equilibria</li>
+                        <li>Fair division</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Advanced Topics</h3>
+                <p>
+                    <span class="badge">Information Design</span>
+                    <span class="badge">Contract Design</span>
+                    <span class="badge">Industrial Organization</span>
+                    <span class="badge">Econometrics</span>
+                    <span class="badge">Agent-based Modeling</span>
+                    <span class="badge">Decision Theory</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- History Section -->
+        <section id="history">
+            <h2 class="section-title">📖 Conference History & Evolution</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>1999 - The Beginning</h4>
+                    <p>The first ACM Conference on Electronic Commerce was established, laying the foundation for a new field combining economics and computation.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>2000s - Growth Phase</h4>
+                    <p>EC grew into the premier international venue. EC became the go-to conference for algorithm design, auction theory, and market mechanisms research.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>2010s - Diversification</h4>
+                    <p>The conference expanded to cover blockchain, cryptocurrencies, AI-driven markets, and platform economics. International locations including Europe and beyond.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>2020s - Cutting Edge</h4>
+                    <p>Focus on AI ethics, fairness, privacy, and economic implications of large language models. Integration of empirical work with theoretical advances.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>2025 - EC'25 at Stanford</h4>
+                    <p>The 26th edition takes place at Stanford University (July 7-10, 2025), featuring the latest advances in economics and computation.</p>
+                    <span class="badge success">Upcoming</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>✨ Impact & Recognition</h3>
+                <p>EC has been instrumental in establishing the computational perspective on economics. Key sponsors include major tech companies like Microsoft Research and Google Research. The conference has launched numerous influential research directions and continues to shape how we think about algorithms, markets, and economic design.</p>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section id="community">
+            <h2 class="section-title">👥 Community & Organization</h2>
+
+            <div class="card">
+                <h3>ACM SIGecom - Special Interest Group on Economics and Computation</h3>
+                <p>SIGecom is the organizing body that champions research and applications at the interface between computer science and economics. The group uses economic ideas and computational reasoning to understand and improve social and economic interactions.</p>
+            </div>
+
+            <div class="card">
+                <h3>Primary Activities</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-md);">
+                    <div>
+                        <h4 style="color: var(--color-primary); margin-bottom: 10px;">🎤 Annual Conference</h4>
+                        <p>The flagship ACM Conference on Economics and Computation, bringing together leading researchers and practitioners.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--color-primary); margin-bottom: 10px;">🏆 Annual Awards</h4>
+                        <p>Recognition of outstanding work in economics and computation, including awards for exceptional contributions.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--color-primary); margin-bottom: 10px;">📰 Publications</h4>
+                        <p>ACM Transactions on Economics and Computation and SIGecom Exchanges newsletter for disseminating knowledge.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--color-primary); margin-bottom: 10px;">🤝 Collaboration</h4>
+                        <p>Support for technical meetings, workshops, and enrichment activities to advance the field.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>🌍 Global Reach</h3>
+                <p>EC rotates between different venues globally, fostering international participation and collaboration. Recent conferences have been hosted in major research centers, and EC'25 returns to Stanford University, a hub for computer science and economics research.</p>
+            </div>
+
+            <div class="card">
+                <h3>Supporting Organizations</h3>
+                <p>
+                    <strong>Major Sponsors:</strong> Microsoft Research, Google Research, and other leading tech companies and academic institutions.
+                </p>
+                <p>
+                    <strong>Academic Partners:</strong> Top universities worldwide collaborate through their economics and computer science departments to advance research at this intersection.
+                </p>
+            </div>
+        </section>
+
+        <!-- Details Section -->
+        <section id="details">
+            <h2 class="section-title">📋 EC'25 Details & Participation</h2>
+
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Details</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Conference Name</strong></td>
+                        <td>26th ACM Conference on Economics and Computation (EC'25)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dates</strong></td>
+                        <td>July 7-10, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location</strong></td>
+                        <td>Stanford University, Stanford, CA</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Format</strong></td>
+                        <td>Primarily in-person</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Local Support</strong></td>
+                        <td>Department of Economics, Management Science &amp; Engineering, SIEPR</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Paper Format</strong></td>
+                        <td>8 pages (content) + references + appendix (max 12 pages)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Submission Format</strong></td>
+                        <td>Single PDF using ACM template (anonymous review)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Program</strong></td>
+                        <td>Technical papers, invited speakers, workshops, posters</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>How to Participate</h3>
+                <div style="background: var(--color-accent-1); padding: var(--spacing-md); border-radius: 8px; margin-bottom: var(--spacing-md);">
+                    <h4 style="color: var(--color-primary); margin-bottom: 10px;">1. Submit a Paper</h4>
+                    <p>Researchers can submit original research contributions addressing any of the conference topics. Papers go through peer review and must follow ACM formatting guidelines.</p>
+                </div>
+
+                <div style="background: var(--color-accent-2); padding: var(--spacing-md); border-radius: 8px; margin-bottom: var(--spacing-md);">
+                    <h4 style="color: var(--color-primary); margin-bottom: 10px;">2. Attend as Participant</h4>
+                    <p>Researchers, students, and industry professionals can attend to learn about cutting-edge research, network with peers, and engage in discussions.</p>
+                </div>
+
+                <div style="background: var(--color-accent-3); padding: var(--spacing-md); border-radius: 8px; margin-bottom: var(--spacing-md);">
+                    <h4 style="color: var(--color-primary); margin-bottom: 10px;">3. Organize Workshops</h4>
+                    <p>Submit proposals for workshops or tutorials on specialized topics to deepen knowledge in specific areas of economics and computation.</p>
+                </div>
+
+                <div style="background: var(--color-accent-4); padding: var(--spacing-md); border-radius: 8px;">
+                    <h4 style="color: var(--color-primary); margin-bottom: 10px;">4. Present a Poster</h4>
+                    <p>Showcase work-in-progress or additional research through poster presentations to facilitate interactions and feedback.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📞 Key Resources</h3>
+                <ul style="list-style-position: inside; color: var(--color-text-light);">
+                    <li><strong>Official Website:</strong> ec25.sigecom.org</li>
+                    <li><strong>SIGecom Homepage:</strong> sigecom.org</li>
+                    <li><strong>ACM DL:</strong> ACM Digital Library hosts all past proceedings</li>
+                    <li><strong>Call for Papers:</strong> Available on the official EC'25 website with submission deadlines</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>ACM EC Conference</strong> - A premier venue for research at the intersection of economics and computation</p>
+        <p>Organized by ACM Special Interest Group on Economics and Computation (SIGecom)</p>
+        <p style="margin-top: var(--spacing-md); font-size: 0.9em; opacity: 0.8;">© 2025 ACM | This guide is for educational purposes based on current EC information</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                // Remove active class from all buttons and sections
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding section
+                e.target.classList.add('active');
+                const sectionId = e.target.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+
+                // Smooth scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
