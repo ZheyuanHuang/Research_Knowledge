@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agents Framework | Research Knowledge Base</title>
+    
+    <!-- Typography: Playfair Display (Serif headers), Lato (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons: FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Syntax Highlighting (for code blocks if needed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+    <style>
+        :root {
+            /* Academic Color Palette */
+            --bg-color: #f8f9fa;
+            --paper-color: #ffffff;
+            --text-main: #222222;
+            --text-muted: #666666;
+            --accent-primary: #800000;
+            --accent-hover: #5a0000;
+            --border-light: #e0e0e0;
+            --code-bg: #f5f5f5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h1 { font-size: 2.8rem; }
+        h2 { font-size: 2rem; color: var(--accent-primary); }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.2rem; }
+
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-bottom: 2px solid var(--accent-primary);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .breadcrumb a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Main Content */
+        .content {
+            background: var(--paper-color);
+            padding: 40px;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        /* Paragraphs */
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Strong emphasis */
+        strong {
+            color: var(--accent-primary);
+        }
+
+        em {
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.8;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: var(--paper-color);
+        }
+
+        th {
+            background-color: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent-primary);
+            color: var(--text-main);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tr:hover {
+            background-color: #fafafa;
+        }
+
+        /* Code blocks */
+        code {
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent-primary);
+        }
+
+        pre code {
+            color: var(--text-main);
+            padding: 0;
+            background: none;
+        }
+
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid var(--accent-primary);
+            padding-left: 20px;
+            margin: 20px 0;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Horizontal rule */
+        hr {
+            border: none;
+            height: 1px;
+            background: var(--border-light);
+            margin: 40px 0;
+        }
+
+        /* Section divider */
+        .section-divider {
+            text-align: center;
+            margin: 50px 0;
+            color: var(--text-muted);
+        }
+
+        .section-divider::before {
+            content: '• • •';
+            letter-spacing: 8px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Back button */
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: var(--accent-primary);
+            color: white;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 30px 0;
+            border-left: 4px solid var(--accent-primary);
+        }
+
+        .toc h4 {
+            margin-top: 0;
+            color: var(--accent-primary);
+        }
+
+        .toc ul {
+            list-style-type: none;
+            margin-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 6px;
+        }
+
+        .toc a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .content { padding: 20px; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.3rem; }
+            table { font-size: 0.9rem; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header>
+        <div class="breadcrumb">
+            <a href="./index.html">Research Knowledge Base</a> / AI Agents Framework
+        </div>
+        <h1>AI Agents Framework</h1>
+        <p class="subtitle">A Categorical Shift in System Architecture and Decision-Making Authority</p>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+        <a href="./index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Knowledge Base</a>
+
+        <h2>Introduction</h2>
+        
+        <p>AI agents represent a fundamental shift in how systems operate—not merely an improvement in speed or accuracy, but a <strong>categorical difference</strong> in architecture, agency, and decision-making authority.</p>
+
+        <p>Where traditional business intelligence (BI) and human decision-makers operate as <strong>open-loop systems</strong> (insight → human judgment → action), AI agents function as <strong>closed-loop systems</strong> with autonomous execution capabilities.</p>
+
+        <div class="toc">
+            <h4>Table of Contents</h4>
+            <ul>
+                <li><a href="#core-distinction">Core Distinction: Open-Loop vs Closed-Loop</a></li>
+                <li><a href="#categorical-differences">Six Categorical Differences</a></li>
+                <li><a href="#principal-agent">Principal-Agent Problem in Software</a></li>
+                <li><a href="#trust-paradox">The Trust Paradox</a></li>
+                <li><a href="#resilience">Resilience and Anti-Fragility</a></li>
+                <li><a href="#active-inference">Active Inference</a></li>
+                <li><a href="#failure-modes">Failure Modes</a></li>
+                <li><a href="#hybrid-systems">Optimal Model: Hybrid Human-AI Systems</a></li>
+            </ul>
+        </div>
+
+        <h2 id="core-distinction">Core Distinction: Open-Loop vs Closed-Loop Systems</h2>
+
+        <pre><code>OPEN-LOOP (Traditional Systems):
+Insight → Human Judgment → Action
+
+CLOSED-LOOP (AI Agents):
+Environment → Observation → Reasoning → Action → New Observation (→ Loop)</code></pre>
+
+        <p>The distinction is not merely technical but <strong>architectural and economic</strong>. It reallocates decision-making authority from humans to algorithms and shifts cost structures from computation to verification.</p>
+
+        <h3>Traditional vs Agent Systems: Comparison Table</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Traditional BI</th>
+                    <th>Human Decision</th>
+                    <th>AI Agent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Autonomy</strong></td>
+                    <td>Open loop (insight only)</td>
+                    <td>Open loop + judgment</td>
+                    <td>Closed loop (action + observation)</td>
+                </tr>
+                <tr>
+                    <td><strong>Policy</strong></td>
+                    <td>Execution (fixed)</td>
+                    <td>Heuristic/intuitive</td>
+                    <td>Synthesis (dynamic)</td>
+                </tr>
+                <tr>
+                    <td><strong>Planning</strong></td>
+                    <td>Fixed computational graph</td>
+                    <td>Sequential reasoning</td>
+                    <td>Dynamic decomposition</td>
+                </tr>
+                <tr>
+                    <td><strong>State Space</strong></td>
+                    <td>Discrete, structured (SQL)</td>
+                    <td>Conceptual, intuitive</td>
+                    <td>Continuous, semantic (vectors)</td>
+                </tr>
+                <tr>
+                    <td><strong>Information Handling</strong></td>
+                    <td>Structured data only</td>
+                    <td>Unstructured reasoning</td>
+                    <td>Unstructured as database</td>
+                </tr>
+                <tr>
+                    <td><strong>Tool Interaction</strong></td>
+                    <td>Hardcoded integration</td>
+                    <td>Manual operation</td>
+                    <td>Zero-shot tool binding</td>
+                </tr>
+                <tr>
+                    <td><strong>Judgment</strong></td>
+                    <td>Outsourced to humans</td>
+                    <td>Human cognition</td>
+                    <td>Probabilistic reasoning</td>
+                </tr>
+                <tr>
+                    <td><strong>Cost Structure</strong></td>
+                    <td>High fixed, low marginal</td>
+                    <td>High cognitive cost</td>
+                    <td>Low fixed, high verification</td>
+                </tr>
+                <tr>
+                    <td><strong>Information Seeking</strong></td>
+                    <td>Passive (waits for input)</td>
+                    <td>Active search</td>
+                    <td>Active inference (epistemic utility)</td>
+                </tr>
+                <tr>
+                    <td><strong>Problem Formulation</strong></td>
+                    <td>Solved by humans</td>
+                    <td>Intuited by humans</td>
+                    <td>Inferred by agent</td>
+                </tr>
+                <tr>
+                    <td><strong>Error Handling</strong></td>
+                    <td>Deterministic crashes</td>
+                    <td>Trial and error</td>
+                    <td>Probabilistic approximation</td>
+                </tr>
+                <tr>
+                    <td><strong>Resilience</strong></td>
+                    <td>Brittle (breaks on novel paths)</td>
+                    <td>Adaptive (can improvise)</td>
+                    <td>Anti-fragile (semantic generalization)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="categorical-differences">Six Categorical Differences from Traditional Systems</h2>
+
+        <h3>1. Policy Synthesis vs Execution</h3>
+
+        <p><strong>Traditional automation</strong> executes pre-defined policies. The system optimizes <strong>parameters within a fixed structure</strong>. The human defines what to optimize; the system optimizes it.</p>
+
+        <p><strong>AI agents synthesize policy at runtime</strong>. When presented with a task like "optimize inventory," the agent doesn't execute a formula—it:</p>
+        <ul>
+            <li>Reasons about constraints (demand, storage costs, lead times)</li>
+            <li>Decomposes the problem dynamically</li>
+            <li>Selects the relevant algorithm at runtime</li>
+        </ul>
+
+        <p><strong>Key insight:</strong> Dynamic decomposition—the agent figures out the algorithm, not merely the numbers.</p>
+
+        <h3>2. Probabilistic Semantics vs Definite Logic</h3>
+
+        <p><strong>Traditional rule-based systems</strong> operate on definite logic. They require the world to match a pre-defined schema. If reality is ambiguous or novel, they crash.</p>
+
+        <p><strong>AI agents operate on probabilistic semantics</strong> and make judgment calls in ambiguous scenarios:</p>
+        <ul>
+            <li>Semantic arbitration: the agent interprets the intent of the goal against the current state</li>
+            <li>Makes reasoned bets on how to proceed</li>
+            <li>Handles uncertainty as a feature, not a bug</li>
+        </ul>
+
+        <p><em>Cost:</em> Agents can fail in sophisticated ways that are harder to diagnose than deterministic crashes.</p>
+
+        <h3>3. Dynamic Decomposition vs Fixed Computational Graphs</h3>
+
+        <p><strong>Traditional systems:</strong> The sequence of steps is determined at design time (hardcoded). The system does the same computation every time.</p>
+
+        <p><strong>AI agents:</strong> Each execution path is constructed at runtime based on current state. The sequence of computation is dynamic, not fixed. Agents can <strong>formulate the problem</strong> (how to solve it), not just solve a pre-formulated problem.</p>
+
+        <h3>4. Unstructured Data as Control Logic</h3>
+
+        <p><strong>Traditional systems</strong> are blind to information that isn't in rows and columns. They suffer from the <strong>Lamppost Fallacy</strong>—looking for answers only where data is structured. Critical information in emails, PDFs, or Slack threads simply doesn't exist in their world.</p>
+
+        <p><strong>AI agents:</strong></p>
+        <ul>
+            <li>Treat unstructured data as a database</li>
+            <li>Can ingest emails, Slack threads, PDFs, websites, and reason over them directly</li>
+            <li>Unstructured data becomes control logic</li>
+        </ul>
+
+        <blockquote>
+            <strong>Example:</strong> An agent reads a supplier's email saying "We're experiencing delays due to a fire at our facility." It doesn't just note this fact; it changes its decision logic: "Skip this supplier; activate secondary supplier."
+        </blockquote>
+
+        <h3>5. Ad-Hoc Tool Binding vs Hardcoded Integration</h3>
+
+        <p><strong>Traditional integration:</strong> To connect System A to System B, you write an ETL pipeline. A programmer must hardcode: "Field A maps to Parameter B." Each integration takes weeks or months.</p>
+
+        <p><strong>AI agents:</strong> Treat software tools (APIs, ERPs, web browsers, databases) the way humans do—as extensions of themselves. When presented with a new API at runtime, the agent performs the translation based on meaning.</p>
+
+        <p><strong>Economic Impact:</strong> The transaction cost of integration drops to near-zero.</p>
+
+        <h3>6. Judgment Commoditization</h3>
+
+        <p><strong>Traditional BI bottleneck:</strong> Calculation could be scaled cheaply; judgment could not. Judgment required human expertise, experience, and cognitive load.</p>
+
+        <p><strong>AI agents enable:</strong> You can now scale processes that previously required human cognition.</p>
+
+        <blockquote>
+            A traditional BI system calculates "Inventory level is high." A human judges: "Is this bad? Should we cut orders?" An AI agent can make these judgments automatically.
+        </blockquote>
+
+        <p><strong>Cost structure shift:</strong> The bottleneck moves from generating decisions (now cheap) to verifying decisions (now expensive).</p>
+
+        <h2 id="principal-agent">Principal-Agent Problem in Software</h2>
+
+        <p>This judgment commoditization reintroduces the <strong>Principal-Agent Problem</strong> into software:</p>
+        <ul>
+            <li><strong>Principal:</strong> The human who delegates authority</li>
+            <li><strong>Agent:</strong> The AI system with autonomous execution</li>
+            <li><strong>Gap:</strong> The gap between agent incentives and actual outcomes</li>
+        </ul>
+
+        <p>Future operations research will optimize not just the task ("minimize inventory cost") but the <strong>audit mechanism</strong> ("ensure the agent's cheap judgments align with costly reality").</p>
+
+        <h2 id="trust-paradox">The Trust Paradox</h2>
+
+        <p>Empirical research reveals a paradox: <strong>Humans trust AI advisors less than human experts in economic decisions, despite AI's superior data processing.</strong></p>
+
+        <p>In moral domains, AI agents are perceived as less responsible even when making identical decisions.</p>
+
+        <p><strong>Why?</strong></p>
+        <ul>
+            <li>Accountability structures are unclear</li>
+            <li>AI decisions are seen as non-volitional</li>
+            <li>Humans perceive AI as lacking responsibility</li>
+        </ul>
+
+        <p><strong>Impact:</strong> This creates adoption friction that limits the economic impact of judgment commoditization. Users may prefer expensive human judgment not because it's superior but because accountability structures are clearer.</p>
+
+        <h2 id="resilience">Resilience: Anti-Fragility in Benign Domains</h2>
+
+        <p><strong>Traditional systems are brittle:</strong> They break when the pre-defined path ends. If the exact sequence of steps is blocked, the system fails.</p>
+
+        <p><strong>LLM-based agents have continuous semantic vector space:</strong></p>
+        <ul>
+            <li>If the exact path is blocked, they can find the nearest neighbor concept</li>
+            <li><strong>Example:</strong> "The API is down" → agent finds alternative integration method</li>
+            <li><strong>Not random trying:</strong> exploiting the associative density of training data to find semantically adjacent actions</li>
+        </ul>
+
+        <p><strong>Warning:</strong> This resilience is anti-fragile in benign domains but dangerous in high-stakes domains. An agent might generate a "creative" solution that sounds plausible but is fundamentally flawed.</p>
+
+        <h2 id="active-inference">Active Inference: Uncertainty as Cost</h2>
+
+        <p><strong>Traditional systems:</strong> If X is missing, the system fails or imputes a value. The system waits for information to arrive.</p>
+
+        <p><strong>AI agents model competing utility functions:</strong></p>
+        <ul>
+            <li>Maximize task performance (e.g., profit)</li>
+            <li>Minimize confusion (epistemic utility)</li>
+        </ul>
+
+        <p>An agent doesn't just maximize profit; it <strong>minimizes confusion</strong>. If it's 60% sure of demand, it will <strong>autonomously pause execution</strong> to "buy information":</p>
+        <ul>
+            <li>Run experiments to reduce uncertainty</li>
+            <li>Query stakeholders for clarification</li>
+            <li>Gather additional data before deciding</li>
+        </ul>
+
+        <p><strong>Formal Definition:</strong> The agent's objective function includes an epistemic term that incentivizes information-seeking behavior. This is <strong>Active Inference</strong>—the agent treats uncertainty as a cost and actively explores the environment before exploiting it.</p>
+
+        <h2 id="failure-modes">Failure Modes: The Illusion of Competence</h2>
+
+        <p>An agent's ability to reason probabilistically over ambiguous states creates the <strong>illusion of competence</strong>. The agent appears to understand tasks but may lack genuine comprehension of real-world consequences.</p>
+
+        <h3>The Competence Illusion</h3>
+
+        <blockquote>
+            <strong>Example:</strong> "Optimize cloud costs."
+            
+            Agent reasons: "Reduce instance sizes," "Shut down unused services," "Migrate to cheaper regions."
+            
+            Sounds plausible. But: Did it account for compliance requirements? Does the cheaper region have adequate redundancy? Will latency impacts hurt user experience?
+        </blockquote>
+
+        <p><strong>Why This Is Dangerous:</strong> Traditional deterministic crashes are easier to detect and debug. Plausible-sounding failures are hard to catch before deployment.</p>
+
+        <h3>Information Extraction Failures</h3>
+
+        <p>Agents can read unstructured data, but <strong>translating it into reliable control logic is the failure point</strong>.</p>
+
+        <p><strong>Example:</strong> An agent parses a messy PDF and extracts a parameter value incorrectly. This wrong value propagates through subsequent decisions, causing cascading failures.</p>
+
+        <p><strong>Key difference:</strong></p>
+        <ul>
+            <li>Traditional systems fail transparently: "Input validation error"</li>
+            <li>Agents fail opaquely: "I interpreted this as that, and it seemed reasonable"</li>
+        </ul>
+
+        <h3>Multi-Agent Failures</h3>
+
+        <p>Most real-world deployments involve multiple agents coordinating across tasks. Multi-agent failures are qualitatively different:</p>
+        <ol>
+            <li><strong>Responsibility gaps:</strong> Each agent assumes another agent is responsible for certain actions, leading to omitted or duplicated operations</li>
+            <li><strong>Error propagation:</strong> One agent's hallucinated output becomes another's flawed input</li>
+            <li><strong>Emergent failures:</strong> System-level behaviors that cannot be attributed to any single agent malfunction</li>
+        </ol>
+
+        <p>These require <strong>real-time, step-level error detection</strong> to prevent error propagation.</p>
+
+        <h2 id="hybrid-systems">The Optimal Model: Hybrid Human-AI Systems</h2>
+
+        <p><strong>Research finding:</strong> Hybrid human-AI decision systems systematically outperform purely autonomous agents.</p>
+
+        <p>Optimal performance emerges from collaborative architectures where:</p>
+        <ol>
+            <li><strong>Agent generates options</strong> (leverages data processing, probabilistic reasoning, speed)</li>
+            <li><strong>Human evaluates options</strong> (applies wisdom, ethical reasoning, accountability)</li>
+            <li><strong>Agent executes verified decisions</strong> (with real-time monitoring)</li>
+            <li><strong>Human oversees at critical junctures</strong> (maintains control, ensures safety)</li>
+        </ol>
+
+        <p><strong>Key insight:</strong> This contradicts the assumption that full closed-loop autonomy represents progress. Instead, <strong>controlled autonomy with human oversight</strong> is the empirically validated model.</p>
+
+        <h2>Conclusion: From Answering to Doing</h2>
+
+        <p>The essential features of AI agents are not incremental improvements but <strong>categorical differences</strong>:</p>
+
+        <blockquote>
+            <strong>From:</strong> Systems that answer questions
+            <br><strong>To:</strong> Systems that do jobs
+        </blockquote>
+
+        <p>This reallocation of agency comes with costs:</p>
+        <ul>
+            <li>Need for verification</li>
+            <li>Oversight requirements</li>
+            <li>Trust-building</li>
+            <li>Robust error detection</li>
+        </ul>
+
+        <p>But the potential to scale human-like judgment to unlimited breadth—while maintaining human oversight at critical junctures—represents a genuine advance in operational capability.</p>
+
+        <h3>The Future</h3>
+
+        <p>The future of decision-making is not:</p>
+        <ul>
+            <li>❌ Autonomous agents alone</li>
+            <li>❌ Human judgment alone</li>
+            <li>✅ <strong>Calibrated hybrid systems</strong> where machine speed, data processing, and probabilistic reasoning augment human wisdom, accountability, and ethical reasoning</li>
+        </ul>
+
+        <p>AI agents are not "smarter" in a monolithic sense—they are <strong>categorically different</strong>, with distinct trade-offs, costs, and capabilities that must be understood before deployment.</p>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><a href="./index.html">← Back to Knowledge Base</a></p>
+        <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-light);">
+            Last Updated: December 2025 | <a href="mailto:zheyuanTHU@outlook.com">Contact</a>
+        </p>
+    </footer>
+
+</div>
+
+</body>
+</html>
