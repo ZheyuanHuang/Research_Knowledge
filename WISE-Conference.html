@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WISE Conference Guide | Research Knowledge Base</title>
+    
+    <!-- Typography: Playfair Display (Serif headers), Lato (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons: FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --paper-color: #ffffff;
+            --text-main: #222222;
+            --text-muted: #666666;
+            --accent-primary: #800000;
+            --accent-hover: #5a0000;
+            --border-light: #e0e0e0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h1 { font-size: 2.8rem; margin-top: 0; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.4rem; }
+        h4 { font-size: 1.1rem; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 50px;
+            border-bottom: 2px solid var(--accent-primary);
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-hover);
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        main {
+            background: var(--paper-color);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        section h2 {
+            color: var(--accent-primary);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 10px;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+
+        strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        em {
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: var(--accent-primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .card-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card-list li {
+            background: #fafafa;
+            padding: 15px;
+            border-left: 4px solid var(--accent-primary);
+            list-style: none;
+            margin-left: 0;
+            border-radius: 4px;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--accent-primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid var(--accent-primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .research-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .research-areas li {
+            background: #f0f5f7;
+            padding: 15px;
+            border-radius: 4px;
+            list-style: none;
+            margin-left: 0;
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            main { padding: 20px; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="breadcrumb"><a href="./index.html">← Back to Research Knowledge Base</a></div>
+        <h1>WISE Conference</h1>
+        <p class="subtitle">International Conference on Web Information Systems Engineering</p>
+    </header>
+
+    <main>
+        <section>
+            <h2><i class="fas fa-globe"></i> Overview</h2>
+            <p><strong>WISE</strong> (Web Information Systems Engineering) is a premier international conference series that has established itself as a leading forum for researchers, professionals, and industrial practitioners to share cutting-edge knowledge and innovations in web technologies, methodologies, and applications. The conference celebrates <strong>25+ years of excellence</strong> and continues to advance the field of web information systems at a global scale.</p>
+            
+            <h3>Conference Details</h3>
+            <ul>
+                <li><strong>Full Name:</strong> International Conference on Web Information Systems Engineering</li>
+                <li><strong>Editions:</strong> 26th edition in 2025 (WISE 2025)</li>
+                <li><strong>2025 Location:</strong> Marrakech, Morocco</li>
+                <li><strong>2025 Dates:</strong> December 15-18, 2025</li>
+                <li><strong>Previous Notable Edition:</strong> WISE 2024 (25th edition) held in Doha, Qatar</li>
+                <li><strong>Series Start:</strong> 2000 (Hong Kong)</li>
+                <li><strong>Publication Venue:</strong> Springer Lecture Notes in Computer Science (LNCS)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-target"></i> Mission & Scope</h2>
+            <p>WISE provides an <strong>international forum for researchers, professionals, and industrial practitioners</strong> to:</p>
+            <ol>
+                <li>Share knowledge and insights in the rapidly growing area of Web technologies</li>
+                <li>Advance research in web information systems and their applications</li>
+                <li>Foster collaboration between academia and industry</li>
+                <li>Address emerging challenges in web-scale computing and data management</li>
+            </ol>
+            <div class="highlight">
+                The conference is particularly committed to <strong>maximizing the positive impact of the Web on society</strong> through research that touches the lives of people in meaningful ways.
+            </div>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-book"></i> Core Research Areas</h2>
+            <p>WISE encompasses a broad spectrum of research topics organized into several key categories:</p>
+            
+            <h3>Web Information Systems & Architecture</h3>
+            <ul class="research-areas">
+                <li>Web Information Systems design and engineering</li>
+                <li>Web-scale Distributed and Cloud Computing</li>
+                <li>Web infrastructures and architectures</li>
+                <li>Content Delivery Networks (CDNs)</li>
+                <li>Web tools and visualization</li>
+            </ul>
+
+            <h3>Data & Knowledge Management</h3>
+            <ul class="research-areas">
+                <li><strong>Web Data Models:</strong> Evaluation, metrics, and performance standards</li>
+                <li><strong>Web Information Retrieval:</strong> Search engines, text analytics, and ranking algorithms</li>
+                <li><strong>Linked Open Data:</strong> Semantic web technologies and ontologies</li>
+                <li><strong>Web Mining:</strong> Clickstream analytics, sequential/session-based analysis</li>
+                <li><strong>Web Warehousing:</strong> Data integration and aggregation</li>
+            </ul>
+
+            <h3>Machine Learning & Intelligence</h3>
+            <ul class="research-areas">
+                <li><strong>Machine Learning for the Web:</strong> Deep learning applications, neural networks</li>
+                <li><strong>Web Agents and Web Intelligence:</strong> Autonomous systems and decision-making</li>
+                <li><strong>Recommender Systems:</strong> Personalization and preference learning</li>
+                <li><strong>Graph Learning:</strong> Knowledge graphs and network analysis</li>
+                <li><strong>Data Science and AI Technology:</strong> Advanced analytics and artificial intelligence</li>
+            </ul>
+
+            <h3>Social & Human Factors</h3>
+            <ul class="research-areas">
+                <li><strong>Social Web Models and Analysis:</strong> Social network analysis, community detection</li>
+                <li><strong>Human Factors and Social Issues:</strong> Digital inclusion, accessibility</li>
+                <li><strong>Crowdsourcing Applications:</strong> Human computation and collective intelligence</li>
+                <li><strong>Rich Web UI and HCI:</strong> User interface design, interaction patterns</li>
+            </ul>
+
+            <h3>Security, Privacy & Trust</h3>
+            <ul class="research-areas">
+                <li><strong>Web Security and Trust Management:</strong> Authentication, encryption, threat detection</li>
+                <li><strong>Privacy-Preserving Systems:</strong> Federated learning, differential privacy</li>
+                <li><strong>Web Privacy Management:</strong> GDPR compliance, data protection</li>
+                <li><strong>Identity Management:</strong> Access control and authentication</li>
+            </ul>
+
+            <h3>Advanced Topics</h3>
+            <ul class="research-areas">
+                <li><strong>Semantic Web:</strong> RDF, OWL, and semantic technologies</li>
+                <li><strong>Deep/Hidden Web:</strong> Accessing non-indexed web content</li>
+                <li><strong>Blockchain Technologies:</strong> Decentralized systems and smart contracts</li>
+                <li><strong>IoT and Web of Things:</strong> Integration of internet-connected devices</li>
+                <li><strong>Edge Computing:</strong> Distributed computing at network edge</li>
+                <li><strong>Trustworthy ML:</strong> Fairness, transparency, and responsible AI</li>
+            </ul>
+
+            <h3>Web Applications</h3>
+            <ul class="research-areas">
+                <li><strong>E-Commerce:</strong> Online marketplaces, auctions, and negotiation systems</li>
+                <li><strong>E-Government:</strong> Digital public services</li>
+                <li><strong>E-Learning:</strong> Online education platforms</li>
+                <li><strong>Web-based Business Processes:</strong> Workflow management and services</li>
+                <li><strong>Web Services:</strong> API design, service composition, microservices</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-pen-fancy"></i> Research Track Details</h2>
+            
+            <h3>Submission Guidelines</h3>
+            <p><strong>WISE 2025 Research Track</strong> solicits <strong>high-quality, original papers</strong> focusing on:</p>
+            <ul>
+                <li>Important research problems and challenges</li>
+                <li>Novel solutions with significant impact</li>
+                <li>Both theoretical and empirical contributions</li>
+                <li>Reproducible results with publicly available code (preferred)</li>
+            </ul>
+
+            <h3>Paper Requirements</h3>
+            <ul>
+                <li>Papers must present <strong>significant novel results</strong></li>
+                <li>Double-blind peer review process</li>
+                <li>Accepted papers published in <strong>Springer LNCS</strong> proceedings</li>
+                <li>Best papers invited for journal publication in:
+                    <ul>
+                        <li><strong>World Wide Web Journal</strong> (Springer)</li>
+                        <li><strong>Data Science and Engineering</strong> (Springer)</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Review Criteria</h3>
+            <p>Papers are evaluated on:</p>
+            <ol>
+                <li><strong>Novelty:</strong> Original contributions to the field</li>
+                <li><strong>Technical Quality:</strong> Sound methodology and rigorous evaluation</li>
+                <li><strong>Clarity:</strong> Clear presentation and well-written</li>
+                <li><strong>Significance:</strong> Potential impact on research and practice</li>
+                <li><strong>Reproducibility:</strong> Availability of code and datasets</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-sitemap"></i> Conference Structure & Features</h2>
+            
+            <h3>Main Components</h3>
+            <ol>
+                <li><strong>Research Track:</strong> Primary venue for peer-reviewed papers</li>
+                <li><strong>Special Topic Tracks:</strong>
+                    <ul>
+                        <li>Trustworthy Machine Learning for Web Information Systems</li>
+                        <li>Privacy, Security and Trust in the Digital Space</li>
+                        <li>Enhancing Online Safety and Wellbeing through AI</li>
+                        <li>EdgeAI: Redefining Web Intelligence with Decentralized Computing</li>
+                        <li>Web Engineering for the Computing Continuum</li>
+                        <li>Graph Machine Learning on Web and Social Media</li>
+                    </ul>
+                </li>
+                <li><strong>PhD Symposium:</strong> Dedicated track for doctoral researchers</li>
+                <li><strong>Workshops:</strong> Focused sessions on emerging topics</li>
+                <li><strong>Demos and Posters:</strong> Showcase of tools and applications</li>
+                <li><strong>Keynote Speeches:</strong> Invited talks from leading researchers</li>
+                <li><strong>Networking Sessions:</strong> Career fair and professional networking</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-history"></i> Historical Evolution</h2>
+            <p>The WISE conference series has grown and evolved since its inception:</p>
+            <table>
+                <tr>
+                    <th>Edition</th>
+                    <th>Year</th>
+                    <th>Location</th>
+                    <th>Theme</th>
+                </tr>
+                <tr>
+                    <td>1st</td>
+                    <td>2000</td>
+                    <td>Hong Kong, China</td>
+                    <td>Inaugural</td>
+                </tr>
+                <tr>
+                    <td>2nd</td>
+                    <td>2001</td>
+                    <td>Kyoto, Japan</td>
+                    <td>Expansion</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>2002</td>
+                    <td>Singapore</td>
+                    <td>Growth</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>2003</td>
+                    <td>Rome, Italy</td>
+                    <td>Globalization</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>2004</td>
+                    <td>Brisbane, Australia</td>
+                    <td>Maturation</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>2005</td>
+                    <td>New York, USA</td>
+                    <td>Americas debut</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>2006</td>
+                    <td>Wuhan, China</td>
+                    <td>Asia focus</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>2007</td>
+                    <td>Nancy, France</td>
+                    <td>European presence</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>2008</td>
+                    <td>Auckland, New Zealand</td>
+                    <td>Pacific region</td>
+                </tr>
+                <tr>
+                    <td>25th</td>
+                    <td>2024</td>
+                    <td>Doha, Qatar</td>
+                    <td>Silver anniversary</td>
+                </tr>
+                <tr>
+                    <td>26th</td>
+                    <td>2025</td>
+                    <td>Marrakech, Morocco</td>
+                    <td>African continent</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-medal"></i> Impact & Recognition</h2>
+            
+            <h3>Academic Standing</h3>
+            <ul>
+                <li><strong>CCF Ranking:</strong> C (Computer Science Foundation of China)</li>
+                <li><strong>CORE Ranking:</strong> A (Australasian Council on Computing Education)</li>
+                <li><strong>QUALIS Ranking:</strong> B1 (Brazilian classification)</li>
+                <li><strong>Publication:</strong> Springer Lecture Notes in Computer Science (LNCS)</li>
+            </ul>
+
+            <h3>Community</h3>
+            <ul>
+                <li>Established, solid research community</li>
+                <li>International participation from 17+ countries</li>
+                <li>600+ researchers and practitioners</li>
+                <li>150+ speakers and presenters per edition</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-users-tie"></i> Participating Institutions & Sponsors</h2>
+            <p>The conference attracts participation from:</p>
+            <ul>
+                <li>Leading universities worldwide</li>
+                <li>Major technology companies</li>
+                <li>Research institutes</li>
+                <li>Industrial practitioners</li>
+                <li>Government organizations</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-calendar"></i> Key Dates for WISE 2025</h2>
+            <div class="info-box">
+                <ul>
+                    <li><strong>Submission Deadline:</strong> June 27, 2025 (Extended)</li>
+                    <li><strong>Author Notification:</strong> September 3, 2025</li>
+                    <li><strong>Final Manuscript Due:</strong> September 20, 2025</li>
+                    <li><strong>Conference Dates:</strong> December 15-18, 2025</li>
+                    <li><strong>Location:</strong> Marrakech, Morocco</li>
+                    <li><strong>Format:</strong> Hybrid (In-person and Online)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-door-open"></i> How to Participate</h2>
+            
+            <h3>For Researchers</h3>
+            <ol>
+                <li><strong>Submit original papers</strong> through EasyChair: <a href="https://easychair.org/conferences/?conf=wise2025" target="_blank">https://easychair.org/conferences/?conf=wise2025</a></li>
+                <li><strong>Follow research guidelines</strong> and topic areas</li>
+                <li><strong>Prepare high-quality manuscript</strong> with rigorous evaluation</li>
+                <li><strong>Present findings</strong> at the conference</li>
+                <li><strong>Network</strong> with leading researchers in the field</li>
+            </ol>
+
+            <h3>For PhD Students</h3>
+            <ul>
+                <li>Submit to the <strong>PhD Symposium</strong> track</li>
+                <li>Get feedback from experienced researchers</li>
+                <li>Discuss dissertation research</li>
+                <li>Build professional networks</li>
+            </ul>
+
+            <h3>For Practitioners</h3>
+            <ul>
+                <li>Attend <strong>demos and posters</strong> sessions</li>
+                <li>Participate in <strong>workshops</strong></li>
+                <li>Network at <strong>career fair</strong></li>
+                <li>Learn about <strong>practical applications</strong></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-star"></i> Why Attend WISE?</h2>
+            
+            <h3>Research Community Benefits</h3>
+            <ul>
+                <li><strong>Cutting-edge knowledge:</strong> Latest advances in web technologies</li>
+                <li><strong>Peer feedback:</strong> Constructive criticism from leading researchers</li>
+                <li><strong>Publication opportunity:</strong> LNCS proceedings and journal invitations</li>
+                <li><strong>Visibility:</strong> International exposure for your research</li>
+            </ul>
+
+            <h3>Professional Development</h3>
+            <ul>
+                <li><strong>Networking:</strong> Connect with researchers and practitioners</li>
+                <li><strong>Career opportunities:</strong> Career fair and recruitment</li>
+                <li><strong>Skill development:</strong> Workshops on emerging technologies</li>
+                <li><strong>Leadership experience:</strong> Opportunities to organize sessions</li>
+            </ul>
+
+            <h3>Knowledge Exchange</h3>
+            <ul>
+                <li><strong>Best practices:</strong> Industry insights and solutions</li>
+                <li><strong>Challenges:</strong> Understanding future research directions</li>
+                <li><strong>Collaborations:</strong> Finding potential research partners</li>
+                <li><strong>Open discussions:</strong> Panel sessions on hot topics</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-link"></i> Resources & Links</h2>
+            <ul>
+                <li><strong><a href="https://wise2025.ficloud.org/" target="_blank">Official Conference Website</a></strong></li>
+                <li><strong><a href="https://easychair.org/conferences/?conf=wise2025" target="_blank">EasyChair Submission Portal</a></strong></li>
+                <li><strong><a href="https://www.wise-conferences.org/" target="_blank">WISE Society</a></strong></li>
+                <li><strong>LNCS Proceedings:</strong> Available on Springer Link</li>
+                <li><strong>Previous Editions:</strong> Check DBLP for past papers</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-network-wired"></i> Related Conferences & Communities</h2>
+            <ul>
+                <li><strong>ACM SIGWEB:</strong> Special Interest Group on Hypertext and the Web</li>
+                <li><strong>WWW Conference:</strong> International World Wide Web Conference</li>
+                <li><strong>WSDM:</strong> ACM International Conference on Web Search and Data Mining</li>
+                <li><strong>CSCW:</strong> ACM Conference on Computer-Supported Cooperative Work</li>
+                <li><strong>SIGMOD/VLDB:</strong> Database and data management conferences</li>
+            </ul>
+        </section>
+
+        <div class="footer">
+            <p><strong>Last Updated:</strong> December 2025</p>
+            <p><strong>Source:</strong> WISE Conference Official Website and Call for Papers</p>
+            <p><strong>Questions?</strong> Visit <a href="https://wise2025.ficloud.org/" target="_blank">https://wise2025.ficloud.org/</a> or contact the organizing committee</p>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
